@@ -9,6 +9,10 @@
 #define WIN_WIDTH (640)
 #define WIN_HEIGHT (480)
 
+
+#define min(a, b) (((a) <= (b)) ? (a): (b))
+#define max(a, b) (((a) >= (b)) ? (a): (b))
+
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 
 void startGame(SDL_Window* window, SDL_Renderer* rend);
@@ -53,7 +57,7 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	checkError(tex, window, rend);
 	SDL_FreeSurface(surface);
 
-	SDL_Rect dest = {WIN_WIDTH/2 - 50, WIN_HEIGHT - (WIN_HEIGHT/15),  100, 20};
+	SDL_Rect dest = {WIN_WIDTH /2 - 50, WIN_HEIGHT - (WIN_HEIGHT/15),  100, 20};
 
 	while(1){
 		SDL_Event e;
@@ -62,10 +66,16 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 			break;
 		}
 
-		SDL_RenderClear(rend);
+		if(e.type == SDL_KEYDOWN){
+			if(e.key.keysym.sym == SDLK_LEFT){
+				dest.x = max(dest.x - 1, 0);
+			}
+			else if (e.key.keysym.sym == SDLK_RIGHT){
+				dest.x = min(dest.x + 1, WIN_WIDTH - dest.w);
+			}
+		}
 
-		dest.x = (dest.x + 1) % (WIN_WIDTH);
-		printf("%d\n", dest.x);
+		SDL_RenderClear(rend);
 
 		SDL_RenderCopy(rend, tex, NULL, &dest);
 
