@@ -66,6 +66,7 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	SDL_FreeSurface(surface);
 
 	SDL_Rect dest = {WIN_WIDTH /2 - 50, WIN_HEIGHT - (WIN_HEIGHT/15),  100, 20};
+	SDL_Rect ball = {WIN_WIDTH /2 - 10, WIN_HEIGHT /2 - 10,  20, 20};
 
 	struct player p = {0, 0};
 	const unsigned char* key_states;
@@ -127,6 +128,7 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 		SDL_RenderClear(rend);
 
 		SDL_RenderCopy(rend, tex, NULL, &dest);
+		SDL_RenderCopy(rend, tex, NULL, &ball);
 
 		SDL_RenderPresent(rend);
 
