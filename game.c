@@ -1,29 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "game.h"
+#include "objects.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-
-#define TITLE "Pong game"
-#define POS_UNDF (SDL_WINDOWPOS_UNDEFINED)
-#define WIN_WIDTH (640)
-#define WIN_HEIGHT (480)
-
-#define LEFT (SDL_SCANCODE_LEFT)
-#define RIGHT (SDL_SCANCODE_RIGHT)
-
-
-#define min(a, b) (((a) <= (b)) ? (a): (b))
-#define max(a, b) (((a) >= (b)) ? (a): (b))
-
-struct player {
-	int moving;
-	int direction;
-};
-
-void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
-
-void startGame(SDL_Window* window, SDL_Renderer* rend);
 
 int main(void){
 
@@ -56,6 +33,8 @@ int main(void){
 
 
 void startGame(SDL_Window* window, SDL_Renderer* rend){
+	Object p1 = createPlayer(1, rend);
+	/*
 	int width = 10, height = 10;
 	SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 0, 0));
@@ -66,6 +45,7 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	SDL_FreeSurface(surface);
 
 	SDL_Rect dest = {WIN_WIDTH /2 - 50, WIN_HEIGHT - (WIN_HEIGHT/15),  100, 20};
+	*/
 	SDL_Rect ball = {WIN_WIDTH /2 - 10, WIN_HEIGHT /2 - 10,  20, 20};
 
 	struct player p = {0, 0};
@@ -79,7 +59,11 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 		}
 
 		key_states = SDL_GetKeyboardState(NULL);
+
+		p1->event_handle(p1, &e, key_states);
+		p1->update_object(p1);
 	
+		/*
 		if(key_states[LEFT]){
 			p.moving = 1;
 			p.direction = LEFT;
@@ -115,7 +99,6 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 			}
 		}
 
-		/*
 		if(key_states[LEFT]){
 			printf("left ");
 		}
@@ -127,8 +110,7 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 
 		SDL_RenderClear(rend);
 
-		SDL_RenderCopy(rend, tex, NULL, &dest);
-		SDL_RenderCopy(rend, tex, NULL, &ball);
+		renderObject(p1, rend);
 
 		SDL_RenderPresent(rend);
 
