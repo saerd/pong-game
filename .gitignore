@@ -2,3 +2,4 @@ tags
 tests
 pong
 .gitignore
+*.o

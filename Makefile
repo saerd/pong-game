@@ -10,3 +10,6 @@ player.o: player.c player.h
 objects.o: objects.c objects.h
 
 ball.o: ball.c ball.h
+
+clean:
+	rm pong *.o
