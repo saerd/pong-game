@@ -36,6 +36,9 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	Object p1 = createPlayer(1, rend);
 	checkError(p1, window, rend);
 
+	Object p2 = createPlayer(2, rend);
+	checkError(p2, window, rend);
+
 	Object b = createBall(rend);
 	checkError(b, window, rend);
 
@@ -43,6 +46,7 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 
 	List objList = createList();
 	addToList(objList, p1);
+	addToList(objList, p2);
 	addToList(objList, b);
 
 	Object c;

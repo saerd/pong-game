@@ -16,10 +16,6 @@
 #define WIN_WIDTH (640)
 #define WIN_HEIGHT (480)
 
-#define LEFT (SDL_SCANCODE_LEFT)
-#define RIGHT (SDL_SCANCODE_RIGHT)
-
-
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 
 void startGame(SDL_Window* window, SDL_Renderer* rend);

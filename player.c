@@ -1,6 +1,18 @@
 #include "player.h"
 
 Object createPlayer(int pNum, SDL_Renderer* rend){
+	int p_height, p_left, p_right;
+	if(pNum == 1){
+		p_height = WIN_HEIGHT - (WIN_HEIGHT / 8);
+		p_left = P1_LEFT;
+		p_right = P1_RIGHT;
+	}
+	else{
+		p_height = WIN_HEIGHT /8;
+		p_left = P2_LEFT;
+		p_right = P2_RIGHT;
+	}
+
 	Object p;
 
 	int width = 10, height = 10;
@@ -21,10 +33,13 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 	d->moving = 0;
 	d->direction = 0;
 
+	d->left_button = p_left;
+	d->right_button = p_right;
+
 	p->data = d;
 
 	p->colBox.x = (WIN_WIDTH - 50) /2;
-	p->colBox.y = WIN_HEIGHT - (WIN_HEIGHT /8);
+	p->colBox.y = p_height;
 	p->colBox.w = 100;
 	p->colBox.h = 20;
 
@@ -33,26 +48,28 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 
 void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
 		Player d = (Player) p->data;
-		if(key_states[LEFT]){
+		int left = d->left_button, right = d->right_button;
+
+		if(key_states[left]){
 			d->moving = 1;
-			d->direction = LEFT;
+			d->direction = left;
 		}
-		if(key_states[RIGHT]){
+		if(key_states[right]){
 			d->moving = 1;
-			d->direction = RIGHT;
+			d->direction = right;
 		}
 		if(e->type == SDL_KEYDOWN){
-			if(e->key.keysym.sym == SDLK_LEFT){
+			if(e->key.keysym.scancode == left){
 				d->moving = 1;
-				d->direction = LEFT;
+				d->direction = left;
 			}
-			if (e->key.keysym.sym == SDLK_RIGHT){
+			if (e->key.keysym.scancode == right){
 				d->moving = 1;
-				d->direction = RIGHT;
+				d->direction = right;
 			}
 		}
 
-		if(!key_states[LEFT] && !key_states[RIGHT]){
+		if(!key_states[left] && !key_states[right]){
 			d->moving = 0;
 		}
 }
@@ -60,15 +77,14 @@ void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
 void player_update(Object p, List objList){
 	Player d = p->data;
 	SDL_Rect* r = &p->colBox;
-	if(d->moving){
-		switch(d->direction) {
-			case LEFT :
-				r->x = max(r->x - 2, 0);
-				break;
+	const int left = d->left_button, right = d->right_button;
 
-			case RIGHT :
-				r->x = min(r->x + 2, WIN_WIDTH - r->w);
-				break;
+	if(d->moving){
+		if(d->direction == left){
+			r->x = max(r->x - 2, 0);
+		}
+		else if(d->direction == right){
+			r->x = min(r->x + 2, WIN_WIDTH - r->w);
 		}
 	}
 }

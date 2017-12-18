@@ -42,7 +42,7 @@ void ball_update(Object b, List objList){
 	Object c = objList->head;
 	while(c){
 		if(c != b && checkCollision(c, b)){
-			d->rise = -abs(d->rise);
+			d->rise = -(d->rise);
 		}
 		c = c->next;
 	}
