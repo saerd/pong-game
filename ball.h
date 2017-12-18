@@ -12,6 +12,7 @@ struct ball {
 
 Object createBall(SDL_Renderer* rend);
 void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states);
-void ball_update(Object b);
+void ball_update(Object b, List);
+void free_ball(void * b);
 
 #endif

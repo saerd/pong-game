@@ -16,7 +16,7 @@ Object createBall(SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	b = createObject(tex, ball_EH, ball_update);	
+	b = createObject(tex, ball_EH, ball_update, free_ball);	
 	Ball d = malloc(sizeof(struct ball));
 	d->rise = 1;
 	d->run = 1;
@@ -31,12 +31,32 @@ Object createBall(SDL_Renderer* rend){
 	return b;
 }
 
-void ball_update(Object b){
-	b->colBox.x = (b->colBox.x + 1) % WIN_WIDTH;
+void ball_update(Object b, List objList){
+	Ball d = b->data;
+	if(b->colBox.x + b->colBox.w >= WIN_WIDTH || b->colBox.x <= 0){
+		d->run = -d->run;	
+	}
+	if(b->colBox.y + b->colBox.h >= WIN_HEIGHT || b->colBox.y <= 0){
+		d->rise = -d->rise;
+	}
+	Object c = objList->head;
+	while(c){
+		if(c != b && checkCollision(c, b)){
+			d->rise = -abs(d->rise);
+		}
+		c = c->next;
+	}
+
+	b->colBox.x = (b->colBox.x + d->run);
+	b->colBox.y = (b->colBox.y + d->rise);
 }
 
 void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states){
 	return;
+}
+
+void free_ball(void * b){
+	free(b);
 }
 
 

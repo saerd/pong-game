@@ -24,6 +24,7 @@ int main(void){
 
 	startGame(window, rend);
 	
+	SDL_DestroyRenderer(rend);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
@@ -36,9 +37,15 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	checkError(p1, window, rend);
 
 	Object b = createBall(rend);
+	checkError(b, window, rend);
 
 	const unsigned char* key_states;
 
+	List objList = createList();
+	addToList(objList, p1);
+	addToList(objList, b);
+
+	Object c;
 	while(1){
 		SDL_Event e;
 		SDL_PollEvent(&e);
@@ -48,24 +55,22 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 
 		key_states = SDL_GetKeyboardState(NULL);
 
-		p1->event_handle(p1, &e, key_states);
-		p1->update_object(p1);
+		for(c = objList->head; c; c = c->next){
+			c->event_handle(c, &e, key_states);
+			c->update_object(c, objList);
+		}
 
-		b->event_handle(b, &e, key_states);
-		b->update_object(b);
-	
 		SDL_RenderClear(rend);
 
-		renderObject(p1, rend);
-		renderObject(b, rend);
+		for(c = objList->head; c; c = c->next){
+			renderObject(c, rend);
+		}
 
 		SDL_RenderPresent(rend);
 
 	}
 
-	
-
-
+	freeList(objList);
 }
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend){

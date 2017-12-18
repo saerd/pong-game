@@ -16,7 +16,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	p = createObject(tex, player_EH, player_update);	
+	p = createObject(tex, player_EH, player_update, free_player);
 	Player d = malloc(sizeof(struct player));
 	d->moving = 0;
 	d->direction = 0;
@@ -24,7 +24,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 	p->data = d;
 
 	p->colBox.x = (WIN_WIDTH - 50) /2;
-	p->colBox.y = WIN_HEIGHT - (WIN_HEIGHT /15);
+	p->colBox.y = WIN_HEIGHT - (WIN_HEIGHT /8);
 	p->colBox.w = 100;
 	p->colBox.h = 20;
 
@@ -57,7 +57,7 @@ void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
 		}
 }
 
-void player_update(Object p){
+void player_update(Object p, List objList){
 	Player d = p->data;
 	SDL_Rect* r = &p->colBox;
 	if(d->moving){
@@ -71,5 +71,8 @@ void player_update(Object p){
 				break;
 		}
 	}
-	
+}
+
+void free_player(void* p){
+	free(p);
 }
