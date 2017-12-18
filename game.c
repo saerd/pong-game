@@ -9,9 +9,17 @@
 #define WIN_WIDTH (640)
 #define WIN_HEIGHT (480)
 
+#define LEFT (SDL_SCANCODE_LEFT)
+#define RIGHT (SDL_SCANCODE_RIGHT)
+
 
 #define min(a, b) (((a) <= (b)) ? (a): (b))
 #define max(a, b) (((a) >= (b)) ? (a): (b))
+
+struct player {
+	int moving;
+	int direction;
+};
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 
@@ -59,6 +67,9 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 
 	SDL_Rect dest = {WIN_WIDTH /2 - 50, WIN_HEIGHT - (WIN_HEIGHT/15),  100, 20};
 
+	struct player p = {0, 0};
+	const unsigned char* key_states;
+
 	while(1){
 		SDL_Event e;
 		SDL_PollEvent(&e);
@@ -66,14 +77,52 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 			break;
 		}
 
+		key_states = SDL_GetKeyboardState(NULL);
+	
+		if(key_states[LEFT]){
+			p.moving = 1;
+			p.direction = LEFT;
+		}
+		if(key_states[RIGHT]){
+			p.moving = 1;
+			p.direction = RIGHT;
+		}
 		if(e.type == SDL_KEYDOWN){
 			if(e.key.keysym.sym == SDLK_LEFT){
-				dest.x = max(dest.x - 1, 0);
+				p.moving = 1;
+				p.direction = LEFT;
 			}
-			else if (e.key.keysym.sym == SDLK_RIGHT){
-				dest.x = min(dest.x + 1, WIN_WIDTH - dest.w);
+			if (e.key.keysym.sym == SDLK_RIGHT){
+				p.moving = 1;
+				p.direction = RIGHT;
 			}
 		}
+
+		if(!key_states[LEFT] && !key_states[RIGHT]){
+			p.moving = 0;
+		}
+
+		if(p.moving){
+			switch(p.direction) {
+				case LEFT :
+					dest.x = max(dest.x - 2, 0);
+					break;
+
+				case RIGHT :
+					dest.x = min(dest.x + 2, WIN_WIDTH - dest.w);
+					break;
+			}
+		}
+
+		/*
+		if(key_states[LEFT]){
+			printf("left ");
+		}
+		if(key_states[RIGHT]){
+			printf("right ");
+		}
+		printf("\n");
+		*/
 
 		SDL_RenderClear(rend);
 
