@@ -9,6 +9,7 @@
 
 #include "objects.h"
 #include "player.h"
+#include "ball.h"
 
 #define TITLE "Pong game"
 #define POS_UNDF (SDL_WINDOWPOS_UNDEFINED)

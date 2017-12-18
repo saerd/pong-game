@@ -5,7 +5,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 
 	int width = 10, height = 10;
 	SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
-	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 0, 0));
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
 	if(!surface){
 		return NULL;
 	}
@@ -27,6 +27,8 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 	p->colBox.y = WIN_HEIGHT - (WIN_HEIGHT /15);
 	p->colBox.w = 100;
 	p->colBox.h = 20;
+
+	return p;
 }
 
 void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){

@@ -1,5 +1,4 @@
-#include "objects.h"
-
+#include "game.h"
 
 Object createObject(SDL_Texture* tex, void (*event_handle)(Object, SDL_Event*, const unsigned char*), void (*update_object)(Object)){
 	Object obj = malloc(sizeof(struct object));
