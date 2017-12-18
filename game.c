@@ -53,13 +53,28 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	checkError(tex, window, rend);
 	SDL_FreeSurface(surface);
 
-	SDL_Rect dest = {0, 0, 10, 10};
+	SDL_Rect dest = {WIN_WIDTH/2 - 50, WIN_HEIGHT - (WIN_HEIGHT/15),  100, 20};
 
-	SDL_RenderClear(rend);
-	SDL_RenderCopy(rend, tex, NULL, &dest);
-	SDL_RenderPresent(rend);
+	while(1){
+		SDL_Event e;
+		SDL_PollEvent(&e);
+		if(e.type == SDL_QUIT){
+			break;
+		}
 
-	SDL_Delay(3000);
+		SDL_RenderClear(rend);
+
+		dest.x = (dest.x + 1) % (WIN_WIDTH);
+		printf("%d\n", dest.x);
+
+		SDL_RenderCopy(rend, tex, NULL, &dest);
+
+		SDL_RenderPresent(rend);
+
+	}
+
+	
+
 
 }
 
