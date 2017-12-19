@@ -15,7 +15,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 
 	Object p;
 
-	int width = 10, height = 10;
+	int width = 100, height = 15;
 	SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0, 0, 255));
 	if(!surface){
@@ -38,10 +38,10 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 
 	p->data = d;
 
-	p->colBox.x = (WIN_WIDTH - 50) /2;
+	p->colBox.x = (WIN_WIDTH - width/2) /2;
 	p->colBox.y = p_height;
-	p->colBox.w = 100;
-	p->colBox.h = 20;
+	p->colBox.w = width;
+	p->colBox.h = height;
 
 	return p;
 }

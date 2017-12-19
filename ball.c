@@ -3,8 +3,8 @@
 Object createBall(SDL_Renderer* rend){
 	Object b;
 
-	int width = 10, height = 10;
-	SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+	int side = 18;
+	SDL_Surface* surface = SDL_CreateRGBSurface(0, side, side, 32, 0, 0, 0, 0);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 0, 0));
 	if(!surface){
 		return NULL;
@@ -24,10 +24,10 @@ Object createBall(SDL_Renderer* rend){
 
 	b->data = d;
 
-	b->colBox.x = (WIN_WIDTH - 10) /2;
-	b->colBox.y = (WIN_HEIGHT - 10) /2;
-	b->colBox.w = 20;
-	b->colBox.h = 20;
+	b->colBox.x = (WIN_WIDTH - side/2) /2;
+	b->colBox.y = (WIN_HEIGHT - side/2) /2;
+	b->colBox.w = side;
+	b->colBox.h = side;
 
 	return b;
 }
@@ -57,12 +57,16 @@ void ball_update(Object b, List objList){
 				case 4:
 					ballSpeed(d, DECREASE);
 			}
+		break;
 		}
 		c = c->next;
 	}
 	
-	b->colBox.x = (b->colBox.x + d->run);
-	b->colBox.y = (b->colBox.y + d->rise);
+	b->colBox.x += d->run;
+	b->colBox.y += d->rise;
+	while(c && c->collision_check(c, &b->colBox)){
+		b->colBox.y += d->rise;
+	}
 }
 
 void ball_render(Object b, SDL_Renderer* rend){
