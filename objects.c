@@ -37,6 +37,7 @@ Object createObject(SDL_Texture* tex,
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
 					void (*update_object)(Object, List), 
 					void (*render_object)(Object, SDL_Renderer*),
+					int  (*collision_check)(Object, SDL_Rect*),
 					void (*freeData)(void *))
 {
 	Object obj = malloc(sizeof(struct object));
@@ -45,9 +46,12 @@ Object createObject(SDL_Texture* tex,
 	obj->event_handle = event_handle;
 	obj->update_object = update_object;
 	obj->render_object = render_object;
+	obj->collision_check = collision_check;
 
 	obj->freeData = freeData;
 	obj->next = NULL;
+
+	return obj;
 }
 
 void freeObject(Object o){
@@ -56,11 +60,11 @@ void freeObject(Object o){
 	free(o);
 }
 
-int checkCollision(Object a, Object b){
-	int leftA = a->colBox.x, 			leftB = b->colBox.x;
-	int rightA = leftA + a->colBox.w, 	rightB = leftB + b->colBox.w;
-	int topA = a->colBox.y, 			topB = b->colBox.y;
-	int botA = topA + a->colBox.h,		botB = topB + b->colBox.h;
+int check_rect(SDL_Rect* a, SDL_Rect* b){
+	int leftA = a->x, 			leftB = b->x;
+	int rightA = a->x + a->w, 	rightB = b->x + b->w;
+	int topA = a->y, 			topB = b->y;
+	int botA = a->y + a->h,		botB = b->y + b->h;
 
 	if(botA <= topB) return 0;
 	if(topA >= botB) return 0;
@@ -74,8 +78,6 @@ int checkCollision(Object a, Object b){
 	printf("RIGHT: |%d - %d| = %d\n", rightA, leftB, abs(rightA - leftB));
 	printf("\n");
 	*/
-	printf("%d %d %d %d\n", leftA, topA, a->colBox.w, a->colBox.h);
-	printf("%d %d %d %d\n", leftB, topB, b->colBox.w, b->colBox.h);
 	return 1;
 }
 

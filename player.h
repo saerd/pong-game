@@ -24,6 +24,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend);
 void player_EH(Object p, SDL_Event *e, const unsigned char * key_states);
 void player_update(Object p, List);
 void player_render(Object, SDL_Renderer*);
+int player_col_check(Object p, SDL_Rect* r);
 void free_player(void*);
 
 #endif

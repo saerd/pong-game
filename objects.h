@@ -14,6 +14,7 @@ struct object {
 	void (*event_handle) (Object, SDL_Event*, const unsigned char*);
 	void (*update_object) (Object, List);
 	void (*render_object) (Object, SDL_Renderer*);
+	int (*collision_check) (Object, SDL_Rect*);
 
 	void (*freeData) (void*);
 
@@ -35,9 +36,10 @@ Object createObject(SDL_Texture* tex,
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
 					void (*update_object)(Object, List), 
 					void (*render_object)(Object, SDL_Renderer*),
+					int  (*collision_check)(Object, SDL_Rect*),
 					void (*freeData)(void*));
 
-int checkCollision(Object, Object);
+int check_rect(SDL_Rect*, SDL_Rect*);
 
 #endif
 

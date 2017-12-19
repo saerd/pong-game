@@ -16,7 +16,7 @@ Object createBall(SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	b = createObject(tex, ball_EH, ball_update, ball_render, free_ball);	
+	b = createObject(tex, ball_EH, ball_update, ball_render, ball_col_check, free_ball);	
 	Ball d = malloc(sizeof(struct ball));
 	d->rise = (rand() % 2 == 1) ? 1: -1;
 	d->run = (rand() % 2 == 1) ? 1: -1;
@@ -43,7 +43,7 @@ void ball_update(Object b, List objList){
 	}
 	Object c = objList->head;
 	while(c){
-		if(c != b && checkCollision(c, b)){
+		if(c != b && c->collision_check(c, &b->colBox)){
 			reverseBall(d, RISE);
 			int r = rand() % 6;
 			
@@ -67,6 +67,10 @@ void ball_update(Object b, List objList){
 
 void ball_render(Object b, SDL_Renderer* rend){
 	SDL_RenderCopy(rend, b->tex, NULL, &b->colBox);
+}
+
+int ball_col_check(Object b, SDL_Rect* r){
+	return check_rect(&b->colBox, r);
 }
 
 void ballSpeed(Ball b, int flag){

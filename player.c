@@ -28,7 +28,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	p = createObject(tex, player_EH, player_update, player_render, free_player);
+	p = createObject(tex, player_EH, player_update, player_render, player_col_check, free_player);
 	Player d = malloc(sizeof(struct player));
 	d->moving = 0;
 	d->direction = 0;
@@ -104,6 +104,22 @@ void player_render(Object p, SDL_Renderer* rend){
 		temp.w = split;
 		SDL_RenderCopy(rend, p->tex, NULL, &temp);
 	}
+}
+
+int player_col_check(Object p, SDL_Rect* r){
+	SDL_Rect temp = p->colBox;
+	int split = temp.x + temp.w - WIN_WIDTH;
+	if(split <= 0){
+		return check_rect(&temp, r);
+	}
+	else{
+		temp.w -= split;
+		if(check_rect(&temp, r)) return 1;
+		temp.x = 0;
+		temp.w = split;
+		if(check_rect(&temp, r)) return 1;
+	}
+	return 0;
 }
 
 void free_player(void* p){
