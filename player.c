@@ -3,12 +3,12 @@
 Object createPlayer(int pNum, SDL_Renderer* rend){
 	int p_height, p_left, p_right;
 	if(pNum == 1){
-		p_height = WIN_HEIGHT - (WIN_HEIGHT / 8);
+		p_height = WIN_HEIGHT - (WIN_HEIGHT / 10);
 		p_left = P1_LEFT;
 		p_right = P1_RIGHT;
 	}
 	else{
-		p_height = WIN_HEIGHT /8;
+		p_height = WIN_HEIGHT /10 - 20;
 		p_left = P2_LEFT;
 		p_right = P2_RIGHT;
 	}
@@ -28,7 +28,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	p = createObject(tex, player_EH, player_update, free_player);
+	p = createObject(tex, player_EH, player_update, player_render, free_player);
 	Player d = malloc(sizeof(struct player));
 	d->moving = 0;
 	d->direction = 0;
@@ -81,11 +81,28 @@ void player_update(Object p, List objList){
 
 	if(d->moving){
 		if(d->direction == left){
-			r->x = max(r->x - 2, 0);
+			r->x -= 2;
+			if(r->x < 0) r->x = WIN_WIDTH;
 		}
 		else if(d->direction == right){
-			r->x = min(r->x + 2, WIN_WIDTH - r->w);
+			r->x += 2;
+			if(r->x > WIN_WIDTH) r->x = 0;
 		}
+	}
+}
+
+void player_render(Object p, SDL_Renderer* rend){
+	SDL_Rect temp = p->colBox;
+	int split = temp.x + temp.w - WIN_WIDTH;
+	if(split <= 0){
+		SDL_RenderCopy(rend, p->tex, NULL, &temp);
+	}
+	else{
+		temp.w -= split;
+		SDL_RenderCopy(rend, p->tex, NULL, &temp);
+		temp.x = 0;
+		temp.w = split;
+		SDL_RenderCopy(rend, p->tex, NULL, &temp);
 	}
 }
 

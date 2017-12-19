@@ -22,7 +22,10 @@ int main(void){
 	SDL_Renderer* rend = SDL_CreateRenderer(window, -1, flags);
 	checkError(rend, window, rend);
 
-	startGame(window, rend);
+	srand(time(NULL));
+
+	
+	while(startGame(window, rend));
 	
 	SDL_DestroyRenderer(rend);
 	SDL_DestroyWindow(window);
@@ -32,7 +35,7 @@ int main(void){
 }
 
 
-void startGame(SDL_Window* window, SDL_Renderer* rend){
+int startGame(SDL_Window* window, SDL_Renderer* rend){
 	Object p1 = createPlayer(1, rend);
 	checkError(p1, window, rend);
 
@@ -50,10 +53,12 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 	addToList(objList, b);
 
 	Object c;
+	int return_status = 1;
 	while(1){
 		SDL_Event e;
 		SDL_PollEvent(&e);
 		if(e.type == SDL_QUIT){
+			return_status = 0;
 			break;
 		}
 
@@ -67,14 +72,17 @@ void startGame(SDL_Window* window, SDL_Renderer* rend){
 		SDL_RenderClear(rend);
 
 		for(c = objList->head; c; c = c->next){
-			renderObject(c, rend);
+			c->render_object(c, rend);
 		}
 
 		SDL_RenderPresent(rend);
+		Ball ball_check = b->data;
+		if(ball_check->done) break;
 
 	}
 
 	freeList(objList);
+	return return_status;
 }
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend){

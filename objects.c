@@ -33,11 +33,18 @@ void addToList(List l, Object o){
 	l->tail = o;
 }
 
-Object createObject(SDL_Texture* tex, void (*event_handle)(Object, SDL_Event*, const unsigned char*), void (*update_object)(Object, List), void (*freeData)(void *)){
+Object createObject(SDL_Texture* tex, 
+					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
+					void (*update_object)(Object, List), 
+					void (*render_object)(Object, SDL_Renderer*),
+					void (*freeData)(void *))
+{
 	Object obj = malloc(sizeof(struct object));
+
 	obj->tex = tex;
 	obj->event_handle = event_handle;
 	obj->update_object = update_object;
+	obj->render_object = render_object;
 
 	obj->freeData = freeData;
 	obj->next = NULL;
@@ -59,12 +66,19 @@ int checkCollision(Object a, Object b){
 	if(topA >= botB) return 0;
 	if(leftA >= rightB) return 0;
 	if(rightA <= leftB) return 0;
+
+	/*
+	printf("BOT: |%d - %d| = %d\n", botA, topB, abs(botA - topB));
+	printf("TOP: |%d - %d| = %d\n", topA, botB, abs(topA - botB));
+	printf("LEFT: |%d - %d| = %d\n", leftA, rightB, abs(leftA - rightB));
+	printf("RIGHT: |%d - %d| = %d\n", rightA, leftB, abs(rightA - leftB));
+	printf("\n");
+	*/
+	printf("%d %d %d %d\n", leftA, topA, a->colBox.w, a->colBox.h);
+	printf("%d %d %d %d\n", leftB, topB, b->colBox.w, b->colBox.h);
 	return 1;
 }
 
-void renderObject(Object obj, SDL_Renderer *rend){
-	SDL_RenderCopy(rend, obj->tex, NULL, &obj->colBox);
-}
 
 
 

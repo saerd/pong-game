@@ -13,6 +13,7 @@ struct object {
 
 	void (*event_handle) (Object, SDL_Event*, const unsigned char*);
 	void (*update_object) (Object, List);
+	void (*render_object) (Object, SDL_Renderer*);
 
 	void (*freeData) (void*);
 
@@ -30,11 +31,13 @@ void freeList(List l);
 
 void addToList(List l, Object o);
 
-Object createObject(SDL_Texture* tex, void (*event_handle)(Object, SDL_Event*, const unsigned char*), void (*update_object)(Object, List), void (*freeData)(void*));
+Object createObject(SDL_Texture* tex, 
+					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
+					void (*update_object)(Object, List), 
+					void (*render_object)(Object, SDL_Renderer*),
+					void (*freeData)(void*));
 
 int checkCollision(Object, Object);
-
-void renderObject(Object obj, SDL_Renderer *rend);
 
 #endif
 
