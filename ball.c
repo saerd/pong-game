@@ -4,8 +4,9 @@ Object createBall(SDL_Renderer* rend){
 	Object b;
 
 	int side = 18;
-	SDL_Surface* surface = SDL_CreateRGBSurface(0, side, side, 32, 0, 0, 0, 0);
-	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 0, 0));
+	SDL_Surface* surface = IMG_Load("art/ball.png");
+//	SDL_Surface* surface = SDL_CreateRGBSurface(0, side, side, 32, 0, 0, 0, 0);
+//	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 0, 0));
 	if(!surface){
 		return NULL;
 	}
@@ -20,6 +21,7 @@ Object createBall(SDL_Renderer* rend){
 	Ball d = malloc(sizeof(struct ball));
 	d->rise = (rand() % 2 == 1) ? 1: -1;
 	d->run = (rand() % 2 == 1) ? 1: -1;
+	d->current_sprite = 0;
 	d->done = 0;
 
 	b->data = d;
@@ -70,7 +72,21 @@ void ball_update(Object b, List objList){
 }
 
 void ball_render(Object b, SDL_Renderer* rend){
-	SDL_RenderCopy(rend, b->tex, NULL, &b->colBox);
+	int w, h;
+	SDL_QueryTexture(b->tex, NULL, NULL, &w, &h);
+	w /= 4;
+	h /= 4;
+
+	int repeat = 40;
+
+	Ball d = b->data;
+	int c = d->current_sprite / repeat;
+//	printf("%d\n", c);
+	int x = (c / 4) * w, y = (c % 4) * h;
+	int offset = 4;
+	SDL_Rect r = {x + offset, y + offset, w - offset, h - offset};
+	SDL_RenderCopy(rend, b->tex, &r, &b->colBox);
+	d->current_sprite = (d->current_sprite + 1) % (16 * repeat);
 }
 
 int ball_col_check(Object b, SDL_Rect* r){

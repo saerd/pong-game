@@ -15,6 +15,7 @@ typedef struct ball* Ball;
 struct ball {
 	int rise;
 	int run;
+	int current_sprite;
 	int done;
 };
 
