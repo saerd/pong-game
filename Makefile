@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-lSDL2 -lSDL2_image
+CFLAGS=-lSDL2 -lSDL2_image -lm
 OBJS=player.o objects.o ball.o
 
 game: $(OBJS) game.c game.h
