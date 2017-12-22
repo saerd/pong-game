@@ -19,6 +19,7 @@ struct object {
 	void (*freeData) (void*);
 
 	Object next;
+	Object prev;
 };
 
 struct ListRep {
@@ -31,6 +32,7 @@ List createList(void);
 void freeList(List* l);
 
 void addToList(List l, Object o);
+void deleteFromList(List, Object);
 
 Object createObject(SDL_Texture* tex, 
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
@@ -38,6 +40,8 @@ Object createObject(SDL_Texture* tex,
 					void (*render_object)(Object, SDL_Renderer*),
 					int  (*collision_check)(Object, SDL_Rect*),
 					void (*freeData)(void*));
+
+void freeObject(Object o);
 
 int check_rect(SDL_Rect*, SDL_Rect*);
 

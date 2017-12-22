@@ -17,7 +17,7 @@ void freeList(List *l){
 		while(c){
 			p = c;
 			c = c->next;
-			free(p);
+			freeObject(p);
 		}
 		free(c);
 	}
@@ -29,11 +29,34 @@ void addToList(List l, Object o){
 	}
 	if(l->tail){
 		l->tail->next = o;
+		o->prev = l->tail;
 	}
 	if(!l->head){
 		l->head = o;
 	}
 	l->tail = o;
+}
+
+void deleteFromList(List l, Object o){
+	if(!l || !o){
+		return;
+	}
+
+	if(o->prev){
+		o->prev->next = o->next; 
+	}
+	else{
+		l->head = l->head->next;
+	}
+
+	if(o->next){
+		o->next->prev = o->prev;
+	}
+	else{
+		l->tail = l->tail->prev;
+	}
+
+	freeObject(o);
 }
 
 Object createObject(SDL_Texture* tex, 
@@ -53,6 +76,7 @@ Object createObject(SDL_Texture* tex,
 
 	obj->freeData = freeData;
 	obj->next = NULL;
+	obj->prev = NULL;
 
 	return obj;
 }
