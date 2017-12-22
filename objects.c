@@ -9,15 +9,18 @@ List createList(void){
 	return l;
 }
 
-void freeList(List l){
-	Object c = l->head;
+void freeList(List *l){
+	Object c;
 	Object p;
-	while(c){
-		p = c;
-		c = c->next;
-		free(p);
+	for(int i = 0; i < N_TYPES; i++){
+		c = l[i]->head;
+		while(c){
+			p = c;
+			c = c->next;
+			free(p);
+		}
+		free(c);
 	}
-	free(l);
 }
 
 void addToList(List l, Object o){
@@ -35,7 +38,7 @@ void addToList(List l, Object o){
 
 Object createObject(SDL_Texture* tex, 
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
-					void (*update_object)(Object, List), 
+					void (*update_object)(Object, List*), 
 					void (*render_object)(Object, SDL_Renderer*),
 					int  (*collision_check)(Object, SDL_Rect*),
 					void (*freeData)(void *))

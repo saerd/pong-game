@@ -34,7 +34,7 @@ Object createBall(SDL_Renderer* rend){
 	return b;
 }
 
-void ball_update(Object b, List objList){
+void ball_update(Object b, List *objList){
 	Ball d = b->data;
 	if(b->colBox.x + b->colBox.w >= WIN_WIDTH || b->colBox.x <= 0){
 		reverseBall(d, RUN);
@@ -43,9 +43,9 @@ void ball_update(Object b, List objList){
 		d->done = 1;
 		return;
 	}
-	Object c = objList->head;
+	Object c = objList[PLAYERS]->head;
 	while(c){
-		if(c != b && c->collision_check(c, &b->colBox)){
+		if(c->collision_check(c, &b->colBox)){
 			int p_int = c->colBox.x + (c->colBox.w / 2);
 			int b_int = b->colBox.x + (b->colBox.w / 2);
 			double norm_int = (b_int - p_int) / ((double)c->colBox.w / 2);

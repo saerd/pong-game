@@ -74,7 +74,7 @@ void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
 		}
 }
 
-void player_update(Object p, List objList){
+void player_update(Object p, List* objList){
 	Player d = p->data;
 	SDL_Rect* r = &p->colBox;
 	const int left = d->left_button, right = d->right_button;

@@ -47,10 +47,13 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 
 	const unsigned char* key_states;
 
-	List objList = createList();
-	addToList(objList, p1);
-	addToList(objList, p2);
-	addToList(objList, b);
+	List objList[N_TYPES];
+	for(int i = 0; i < N_TYPES; i++){
+		objList[i] = createList();
+	}
+	addToList(objList[PLAYERS], p1);
+	addToList(objList[PLAYERS], p2);
+	addToList(objList[BALL], b);
 
 	Object c;
 	int return_status = 1;
@@ -64,15 +67,19 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 
 		key_states = SDL_GetKeyboardState(NULL);
 
-		for(c = objList->head; c; c = c->next){
-			c->event_handle(c, &e, key_states);
-			c->update_object(c, objList);
+		for(int i = 0; i < N_TYPES; i++){
+			for(c = objList[i]->head; c; c = c->next){
+				c->event_handle(c, &e, key_states);
+				c->update_object(c, objList);
+			}
 		}
 
 		SDL_RenderClear(rend);
 
-		for(c = objList->head; c; c = c->next){
-			c->render_object(c, rend);
+		for(int i = 0; i < N_TYPES; i++){
+			for(c = objList[i]->head; c; c = c->next){
+				c->render_object(c, rend);
+			}
 		}
 
 		SDL_RenderPresent(rend);

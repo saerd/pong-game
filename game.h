@@ -18,6 +18,11 @@
 #define WIN_WIDTH (480)
 #define WIN_HEIGHT (720)
 
+#define N_TYPES 3
+#define PLAYERS 0
+#define BALL 1
+#define BULLETS 2
+
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 
 int startGame(SDL_Window* window, SDL_Renderer* rend);

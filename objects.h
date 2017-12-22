@@ -12,7 +12,7 @@ struct object {
 	void* data;
 
 	void (*event_handle) (Object, SDL_Event*, const unsigned char*);
-	void (*update_object) (Object, List);
+	void (*update_object) (Object, List*);
 	void (*render_object) (Object, SDL_Renderer*);
 	int (*collision_check) (Object, SDL_Rect*);
 
@@ -28,13 +28,13 @@ struct ListRep {
 };
 
 List createList(void);
-void freeList(List l);
+void freeList(List* l);
 
 void addToList(List l, Object o);
 
 Object createObject(SDL_Texture* tex, 
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
-					void (*update_object)(Object, List), 
+					void (*update_object)(Object, List*), 
 					void (*render_object)(Object, SDL_Renderer*),
 					int  (*collision_check)(Object, SDL_Rect*),
 					void (*freeData)(void*));
