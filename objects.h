@@ -9,6 +9,7 @@ typedef struct ListRep* List;
 struct object {
 	SDL_Rect colBox;
 	SDL_Texture* tex;
+	SDL_Renderer* rend;
 	void* data;
 
 	void (*event_handle) (Object, SDL_Event*, const unsigned char*);
@@ -34,7 +35,7 @@ void freeList(List* l);
 void addToList(List l, Object o);
 void deleteFromList(List, Object);
 
-Object createObject(SDL_Texture* tex, 
+Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
 					void (*update_object)(Object, List*), 
 					void (*render_object)(Object, SDL_Renderer*),

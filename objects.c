@@ -59,7 +59,7 @@ void deleteFromList(List l, Object o){
 	freeObject(o);
 }
 
-Object createObject(SDL_Texture* tex, 
+Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
 					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
 					void (*update_object)(Object, List*), 
 					void (*render_object)(Object, SDL_Renderer*),
@@ -69,6 +69,7 @@ Object createObject(SDL_Texture* tex,
 	Object obj = malloc(sizeof(struct object));
 
 	obj->tex = tex;
+	obj->rend = rend;
 	obj->event_handle = event_handle;
 	obj->update_object = update_object;
 	obj->render_object = render_object;

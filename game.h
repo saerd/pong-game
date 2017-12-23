@@ -10,8 +10,10 @@
 #include <SDL2/SDL_image.h>
 
 #include "objects.h"
+
 #include "player.h"
 #include "ball.h"
+#include "bullet.h"
 
 #define TITLE "Pong game"
 #define POS_UNDF (SDL_WINDOWPOS_UNDEFINED)

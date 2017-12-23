@@ -1,16 +1,18 @@
 #include "player.h"
 
 Object createPlayer(int pNum, SDL_Renderer* rend){
-	int p_height, p_left, p_right;
+	int p_height, p_left, p_right, p_shoot;
 	if(pNum == 1){
 		p_height = WIN_HEIGHT - (WIN_HEIGHT / 10);
 		p_left = P1_LEFT;
 		p_right = P1_RIGHT;
+		p_shoot = P1_SHOOT;
 	}
 	else{
 		p_height = WIN_HEIGHT /10 - 20;
 		p_left = P2_LEFT;
 		p_right = P2_RIGHT;
+		p_shoot = P2_SHOOT;
 	}
 
 	Object p;
@@ -28,13 +30,15 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	p = createObject(tex, player_EH, player_update, player_render, player_col_check, free_player);
+	p = createObject(tex, rend, player_EH, player_update, player_render, player_col_check, free_player);
 	Player d = malloc(sizeof(struct player));
 	d->moving = 0;
 	d->direction = 0;
+	d->shoot = NONE;
 
 	d->left_button = p_left;
 	d->right_button = p_right;
+	d->shoot_button = p_shoot;
 
 	p->data = d;
 
@@ -48,7 +52,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 
 void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
 		Player d = (Player) p->data;
-		int left = d->left_button, right = d->right_button;
+		int left = d->left_button, right = d->right_button, shoot = d->shoot_button;
 
 		if(key_states[left]){
 			d->moving = 1;
@@ -66,6 +70,11 @@ void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
 			if (e->key.keysym.scancode == right){
 				d->moving = 1;
 				d->direction = right;
+			}
+			if (e->key.keysym.scancode == shoot){
+				if(shoot == P1_SHOOT) d->shoot = UP;
+				else d->shoot = DOWN;
+
 			}
 		}
 
@@ -88,6 +97,15 @@ void player_update(Object p, List* objList){
 			r->x += 2;
 			if(r->x > WIN_WIDTH) r->x = 0;
 		}
+	}
+	if(d->shoot){
+		Object b = createBullet(p->rend);
+		b->colBox.x = p->colBox.x + (p->colBox.w - b->colBox.w)/ 2;
+		b->colBox.y = p->colBox.y;
+		Bullet bull = b->data;
+		bull->direction = d->shoot;
+		d->shoot = NONE;
+		addToList(objList[BULLETS], b);
 	}
 }
 

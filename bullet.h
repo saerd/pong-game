@@ -3,10 +3,11 @@
 
 #include "game.h"
 
-#define UP 0
-#define DOWN 1
+#define NONE 0
+#define UP 1
+#define DOWN 2
 
-typedef struct ball* Ball;
+typedef struct bullet* Bullet;
 
 struct bullet {
 	int direction;

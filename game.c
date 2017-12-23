@@ -55,7 +55,7 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 	addToList(objList[PLAYERS], p2);
 	addToList(objList[BALL], b);
 
-	Object c;
+	Object c = NULL, n = NULL;
 	int return_status = 1;
 	while(1){
 		SDL_Event e;
@@ -68,9 +68,12 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 		key_states = SDL_GetKeyboardState(NULL);
 
 		for(int i = 0; i < N_TYPES; i++){
-			for(c = objList[i]->head; c; c = c->next){
+			c = objList[i]->head;
+			while(c){
+				n = c->next;
 				c->event_handle(c, &e, key_states);
 				c->update_object(c, objList);
+				c = n;
 			}
 		}
 

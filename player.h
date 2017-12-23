@@ -5,9 +5,11 @@
 
 #define P1_LEFT (SDL_SCANCODE_LEFT)
 #define P1_RIGHT (SDL_SCANCODE_RIGHT)
+#define P1_SHOOT (SDL_SCANCODE_UP)
 
 #define P2_LEFT (SDL_SCANCODE_A)
-#define P2_RIGHT (SDL_SCANCODE_S)
+#define P2_RIGHT (SDL_SCANCODE_D)
+#define P2_SHOOT (SDL_SCANCODE_W)
 
 
 
@@ -16,8 +18,10 @@ typedef struct player* Player;
 struct player {
 	int left_button;
 	int right_button;
+	int shoot_button;
 	int moving;
 	int direction;
+	int shoot;
 };
 
 Object createPlayer(int pNum, SDL_Renderer* rend);

@@ -17,7 +17,7 @@ Object createBall(SDL_Renderer* rend){
 		return NULL;	
 	}
 
-	b = createObject(tex, ball_EH, ball_update, ball_render, ball_col_check, free_ball);	
+	b = createObject(tex, rend, ball_EH, ball_update, ball_render, ball_col_check, free_ball);	
 	Ball d = malloc(sizeof(struct ball));
 	d->rise = (rand() % 2 == 1) ? 1: -1;
 	d->run = (rand() % 2 == 1) ? 1: -1;
