@@ -3,7 +3,6 @@
 Object createBall(SDL_Renderer* rend){
 	Object b;
 
-	int side = 20;
 	SDL_Surface* surface = IMG_Load("art/ball.png");
 //	SDL_Surface* surface = SDL_CreateRGBSurface(0, side, side, 32, 0, 0, 0, 0);
 //	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 0, 0));
@@ -26,6 +25,7 @@ Object createBall(SDL_Renderer* rend){
 
 	b->data = d;
 
+	int side = 20;
 	b->colBox.x = (WIN_WIDTH - side/2) /2;
 	b->colBox.y = (WIN_HEIGHT - side/2) /2;
 	b->colBox.w = side;

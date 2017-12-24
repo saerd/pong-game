@@ -1,6 +1,6 @@
 #include "bullet.h"
 
-Object createBullet(SDL_Renderer* rend){
+Object createBullet(int x, int y, SDL_Renderer* rend){
 	Object b;
 
 	SDL_Surface* surface = SDL_CreateRGBSurface(0, 10, 10, 32, 0, 0, 0, 0);
@@ -23,6 +23,8 @@ Object createBullet(SDL_Renderer* rend){
 
 	b->data = d;
 
+	b->colBox.x = x;
+	b->colBox.y = y;
 	b->colBox.w = 10;
 	b->colBox.h = 10;
 	

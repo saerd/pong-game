@@ -45,6 +45,8 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 	Object b = createBall(rend);
 	checkError(b, window, rend);
 
+	SDL_Texture* bg = createBackground(rend);
+
 	const unsigned char* key_states;
 
 	List objList[N_TYPES];
@@ -78,6 +80,7 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 		}
 
 		SDL_RenderClear(rend);
+		SDL_RenderCopy(rend, bg, NULL, NULL);
 
 		for(int i = 0; i < N_TYPES; i++){
 			for(c = objList[i]->head; c; c = c->next){
@@ -93,6 +96,21 @@ int startGame(SDL_Window* window, SDL_Renderer* rend){
 
 	freeList(objList);
 	return return_status;
+}
+
+SDL_Texture* createBackground(SDL_Renderer* rend){
+	
+	SDL_Surface* surface = IMG_Load("art/pong_bg.png");
+	if(!surface){
+		return NULL;
+	}
+
+	SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);
+	SDL_FreeSurface(surface);
+	if(!tex){
+		return NULL;	
+	}
+	return tex;
 }
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend){

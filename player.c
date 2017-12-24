@@ -99,9 +99,9 @@ void player_update(Object p, List* objList){
 		}
 	}
 	if(d->shoot){
-		Object b = createBullet(p->rend);
-		b->colBox.x = p->colBox.x + (p->colBox.w - b->colBox.w)/ 2;
-		b->colBox.y = p->colBox.y;
+		int x = p->colBox.x + (p->colBox.w - 5)/ 2;
+		int y = p->colBox.y;
+		Object b = createBullet(x, y, p->rend);
 		Bullet bull = b->data;
 		bull->direction = d->shoot;
 		d->shoot = NONE;
