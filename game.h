@@ -9,6 +9,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "screens.h"
 #include "objects.h"
 
 #include "player.h"
@@ -27,7 +28,7 @@
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 
-int startGame(SDL_Window* window, SDL_Renderer* rend);
+
 SDL_Texture* createBackground(SDL_Renderer* rend);
 
 #define min(a, b) (((a) <= (b)) ? (a): (b))

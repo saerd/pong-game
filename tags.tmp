@@ -1,0 +1,132 @@
+!_TAG_FILE_SORTED	2	/0=unsorted, 1=sorted, 2=foldcase/
+addToList	/home/saer/projects/pong_game/objects.c	/^void addToList(List l, Object o){$/;"	f	language:C++
+addToList	/home/saer/projects/pong_game/objects.h	/^void addToList(List l, Object o);$/;"	p	language:C++
+ball	/home/saer/projects/pong_game/ball.h	/^struct ball {$/;"	s	language:C++
+Ball	/home/saer/projects/pong_game/ball.h	/^typedef struct ball* Ball;$/;"	t	language:C++	typeref:struct:ball
+BALL	/home/saer/projects/pong_game/game.h	26;"	d	language:C++
+ballSpeed	/home/saer/projects/pong_game/ball.c	/^void ballSpeed(Ball b, int flag){$/;"	f	language:C++
+ballSpeed	/home/saer/projects/pong_game/ball.h	/^void ballSpeed(Ball b, int flag);$/;"	p	language:C++
+ball_col_check	/home/saer/projects/pong_game/ball.c	/^int ball_col_check(Object b, SDL_Rect* r){$/;"	f	language:C++
+ball_col_check	/home/saer/projects/pong_game/ball.h	/^int ball_col_check(Object b, SDL_Rect* r);$/;"	p	language:C++
+ball_EH	/home/saer/projects/pong_game/ball.c	/^void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states){$/;"	f	language:C++
+ball_EH	/home/saer/projects/pong_game/ball.h	/^void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states);$/;"	p	language:C++
+BALL_H	/home/saer/projects/pong_game/ball.h	2;"	d	language:C++
+ball_render	/home/saer/projects/pong_game/ball.c	/^void ball_render(Object b, SDL_Renderer* rend){$/;"	f	language:C++
+ball_render	/home/saer/projects/pong_game/ball.h	/^void ball_render(Object, SDL_Renderer*);$/;"	p	language:C++
+ball_update	/home/saer/projects/pong_game/ball.c	/^void ball_update(Object b, List *objList){$/;"	f	language:C++
+ball_update	/home/saer/projects/pong_game/ball.h	/^void ball_update(Object b, List*);$/;"	p	language:C++
+bullet	/home/saer/projects/pong_game/bullet.h	/^struct bullet {$/;"	s	language:C++
+Bullet	/home/saer/projects/pong_game/bullet.h	/^typedef struct bullet* Bullet;$/;"	t	language:C++	typeref:struct:bullet
+BULLETS	/home/saer/projects/pong_game/game.h	27;"	d	language:C++
+bullet_col_check	/home/saer/projects/pong_game/bullet.c	/^int bullet_col_check(Object b, SDL_Rect* r){$/;"	f	language:C++
+bullet_col_check	/home/saer/projects/pong_game/bullet.h	/^int bullet_col_check(Object b, SDL_Rect* r);$/;"	p	language:C++
+bullet_EH	/home/saer/projects/pong_game/bullet.c	/^void bullet_EH(Object b, SDL_Event *e, const unsigned char * key_states){$/;"	f	language:C++
+bullet_EH	/home/saer/projects/pong_game/bullet.h	/^void bullet_EH(Object b, SDL_Event *e, const unsigned char * key_states);$/;"	p	language:C++
+bullet_render	/home/saer/projects/pong_game/bullet.c	/^void bullet_render(Object b, SDL_Renderer* rend){$/;"	f	language:C++
+bullet_render	/home/saer/projects/pong_game/bullet.h	/^void bullet_render(Object, SDL_Renderer*);$/;"	p	language:C++
+bullet_update	/home/saer/projects/pong_game/bullet.c	/^void bullet_update(Object b, List* l){$/;"	f	language:C++
+bullet_update	/home/saer/projects/pong_game/bullet.h	/^void bullet_update(Object b, List*);$/;"	p	language:C++
+BULL_H	/home/saer/projects/pong_game/bullet.h	2;"	d	language:C++
+CC	/home/saer/projects/pong_game/Makefile	/^CC=gcc$/;"	m	language:Make
+CFLAGS	/home/saer/projects/pong_game/Makefile	/^CFLAGS=-lSDL2 -lSDL2_image -lm$/;"	m	language:Make
+checkError	/home/saer/projects/pong_game/game.c	/^void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend){$/;"	f	language:C++
+checkError	/home/saer/projects/pong_game/game.h	/^void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);$/;"	p	language:C++
+check_rect	/home/saer/projects/pong_game/objects.c	/^int check_rect(SDL_Rect* a, SDL_Rect* b){$/;"	f	language:C++
+check_rect	/home/saer/projects/pong_game/objects.h	/^int check_rect(SDL_Rect*, SDL_Rect*);$/;"	p	language:C++
+colBox	/home/saer/projects/pong_game/objects.h	/^	SDL_Rect colBox;$/;"	m	language:C++	struct:object
+collision_check	/home/saer/projects/pong_game/objects.h	/^	int (*collision_check) (Object, SDL_Rect*);$/;"	m	language:C++	struct:object
+createBackground	/home/saer/projects/pong_game/game.c	/^SDL_Texture* createBackground(SDL_Renderer* rend){$/;"	f	language:C++
+createBackground	/home/saer/projects/pong_game/game.h	/^SDL_Texture* createBackground(SDL_Renderer* rend);$/;"	p	language:C++
+createBall	/home/saer/projects/pong_game/ball.c	/^Object createBall(SDL_Renderer* rend){$/;"	f	language:C++
+createBall	/home/saer/projects/pong_game/ball.h	/^Object createBall(SDL_Renderer* rend);$/;"	p	language:C++
+createBullet	/home/saer/projects/pong_game/bullet.c	/^Object createBullet(int x, int y, SDL_Renderer* rend){$/;"	f	language:C++
+createBullet	/home/saer/projects/pong_game/bullet.h	/^Object createBullet(int x, int y, SDL_Renderer* rend);$/;"	p	language:C++
+createList	/home/saer/projects/pong_game/objects.c	/^List createList(void){$/;"	f	language:C++
+createList	/home/saer/projects/pong_game/objects.h	/^List createList(void);$/;"	p	language:C++
+createObject	/home/saer/projects/pong_game/objects.c	/^Object createObject(SDL_Texture* tex, SDL_Renderer* rend,$/;"	f	language:C++
+createObject	/home/saer/projects/pong_game/objects.h	/^Object createObject(SDL_Texture* tex, SDL_Renderer* rend,$/;"	p	language:C++
+createPlayer	/home/saer/projects/pong_game/player.c	/^Object createPlayer(int pNum, SDL_Renderer* rend){$/;"	f	language:C++
+createPlayer	/home/saer/projects/pong_game/player.h	/^Object createPlayer(int pNum, SDL_Renderer* rend);$/;"	p	language:C++
+current_sprite	/home/saer/projects/pong_game/ball.h	/^	int current_sprite;$/;"	m	language:C++	struct:ball
+current_sprite	/home/saer/projects/pong_game/bullet.h	/^	int current_sprite;$/;"	m	language:C++	struct:bullet
+data	/home/saer/projects/pong_game/objects.h	/^	void* data;$/;"	m	language:C++	struct:object
+DECREASE	/home/saer/projects/pong_game/ball.h	8;"	d	language:C++
+deleteFromList	/home/saer/projects/pong_game/objects.c	/^void deleteFromList(List l, Object o){$/;"	f	language:C++
+deleteFromList	/home/saer/projects/pong_game/objects.h	/^void deleteFromList(List, Object);$/;"	p	language:C++
+direction	/home/saer/projects/pong_game/bullet.h	/^	int direction;$/;"	m	language:C++	struct:bullet
+direction	/home/saer/projects/pong_game/player.h	/^	int direction;$/;"	m	language:C++	struct:player
+done	/home/saer/projects/pong_game/ball.h	/^	int done;$/;"	m	language:C++	struct:ball
+DOWN	/home/saer/projects/pong_game/bullet.h	8;"	d	language:C++
+event_handle	/home/saer/projects/pong_game/objects.h	/^	void (*event_handle) (Object, SDL_Event*, const unsigned char*);$/;"	m	language:C++	struct:object
+fncptr	/home/saer/projects/pong_game/screens.h	/^typedef Screen (*fncptr)(SDL_Window*, SDL_Renderer*);$/;"	t	language:C++
+freeData	/home/saer/projects/pong_game/objects.h	/^	void (*freeData) (void*);$/;"	m	language:C++	struct:object
+freeList	/home/saer/projects/pong_game/objects.c	/^void freeList(List *l){$/;"	f	language:C++
+freeList	/home/saer/projects/pong_game/objects.h	/^void freeList(List* l);$/;"	p	language:C++
+freeObject	/home/saer/projects/pong_game/objects.c	/^void freeObject(Object o){$/;"	f	language:C++
+freeObject	/home/saer/projects/pong_game/objects.h	/^void freeObject(Object o);$/;"	p	language:C++
+free_ball	/home/saer/projects/pong_game/ball.c	/^void free_ball(void * b){$/;"	f	language:C++
+free_ball	/home/saer/projects/pong_game/ball.h	/^void free_ball(void * b);$/;"	p	language:C++
+free_bullet	/home/saer/projects/pong_game/bullet.c	/^void free_bullet(void * b){$/;"	f	language:C++
+free_bullet	/home/saer/projects/pong_game/bullet.h	/^void free_bullet(void * b);$/;"	p	language:C++
+free_player	/home/saer/projects/pong_game/player.c	/^void free_player(void* p){$/;"	f	language:C++
+free_player	/home/saer/projects/pong_game/player.h	/^void free_player(void*);$/;"	p	language:C++
+GAME_H	/home/saer/projects/pong_game/game.h	2;"	d	language:C++
+head	/home/saer/projects/pong_game/objects.h	/^	Object head;$/;"	m	language:C++	struct:ListRep
+INCREASE	/home/saer/projects/pong_game/ball.h	7;"	d	language:C++
+left_button	/home/saer/projects/pong_game/player.h	/^	int left_button;$/;"	m	language:C++	struct:player
+List	/home/saer/projects/pong_game/objects.h	/^typedef struct ListRep* List;$/;"	t	language:C++	typeref:struct:ListRep
+ListRep	/home/saer/projects/pong_game/objects.h	/^struct ListRep {$/;"	s	language:C++
+main	/home/saer/projects/pong_game/game.c	/^int main(void){$/;"	f	language:C++
+max	/home/saer/projects/pong_game/game.h	35;"	d	language:C++
+min	/home/saer/projects/pong_game/game.h	34;"	d	language:C++
+moving	/home/saer/projects/pong_game/player.h	/^	int moving;$/;"	m	language:C++	struct:player
+next	/home/saer/projects/pong_game/objects.h	/^	Object next;$/;"	m	language:C++	struct:object
+nitems	/home/saer/projects/pong_game/objects.h	/^	int nitems;$/;"	m	language:C++	struct:ListRep
+NONE	/home/saer/projects/pong_game/bullet.h	6;"	d	language:C++
+NORMAL	/home/saer/projects/pong_game/ball.h	6;"	d	language:C++
+N_TYPES	/home/saer/projects/pong_game/game.h	24;"	d	language:C++
+object	/home/saer/projects/pong_game/objects.h	/^struct object {$/;"	s	language:C++
+Object	/home/saer/projects/pong_game/objects.h	/^typedef struct object* Object;$/;"	t	language:C++	typeref:struct:object
+OBJS	/home/saer/projects/pong_game/Makefile	/^OBJS=player.o objects.o ball.o bullet.o screens.o$/;"	m	language:Make
+OBJ_H	/home/saer/projects/pong_game/objects.h	2;"	d	language:C++
+P1_LEFT	/home/saer/projects/pong_game/player.h	6;"	d	language:C++
+P1_RIGHT	/home/saer/projects/pong_game/player.h	7;"	d	language:C++
+P1_SHOOT	/home/saer/projects/pong_game/player.h	8;"	d	language:C++
+P2_LEFT	/home/saer/projects/pong_game/player.h	10;"	d	language:C++
+P2_RIGHT	/home/saer/projects/pong_game/player.h	11;"	d	language:C++
+P2_SHOOT	/home/saer/projects/pong_game/player.h	12;"	d	language:C++
+player	/home/saer/projects/pong_game/player.h	/^struct player {$/;"	s	language:C++
+Player	/home/saer/projects/pong_game/player.h	/^typedef struct player* Player;$/;"	t	language:C++	typeref:struct:player
+PLAYERS	/home/saer/projects/pong_game/game.h	25;"	d	language:C++
+player_col_check	/home/saer/projects/pong_game/player.c	/^int player_col_check(Object p, SDL_Rect* r){$/;"	f	language:C++
+player_col_check	/home/saer/projects/pong_game/player.h	/^int player_col_check(Object p, SDL_Rect* r);$/;"	p	language:C++
+player_EH	/home/saer/projects/pong_game/player.c	/^void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){$/;"	f	language:C++
+player_EH	/home/saer/projects/pong_game/player.h	/^void player_EH(Object p, SDL_Event *e, const unsigned char * key_states);$/;"	p	language:C++
+player_render	/home/saer/projects/pong_game/player.c	/^void player_render(Object p, SDL_Renderer* rend){$/;"	f	language:C++
+player_render	/home/saer/projects/pong_game/player.h	/^void player_render(Object, SDL_Renderer*);$/;"	p	language:C++
+player_update	/home/saer/projects/pong_game/player.c	/^void player_update(Object p, List* objList){$/;"	f	language:C++
+player_update	/home/saer/projects/pong_game/player.h	/^void player_update(Object p, List*);$/;"	p	language:C++
+PLAY_H	/home/saer/projects/pong_game/player.h	2;"	d	language:C++
+POS_UNDF	/home/saer/projects/pong_game/game.h	20;"	d	language:C++
+prev	/home/saer/projects/pong_game/objects.h	/^	Object prev;$/;"	m	language:C++	struct:object
+rend	/home/saer/projects/pong_game/objects.h	/^	SDL_Renderer* rend;$/;"	m	language:C++	struct:object
+render_object	/home/saer/projects/pong_game/objects.h	/^	void (*render_object) (Object, SDL_Renderer*);$/;"	m	language:C++	struct:object
+reverseBall	/home/saer/projects/pong_game/ball.c	/^void reverseBall(Ball b, int flag){$/;"	f	language:C++
+reverseBall	/home/saer/projects/pong_game/ball.h	/^void reverseBall(Ball b, int flag);$/;"	p	language:C++
+right_button	/home/saer/projects/pong_game/player.h	/^	int right_button;$/;"	m	language:C++	struct:player
+rise	/home/saer/projects/pong_game/ball.h	/^	int rise;$/;"	m	language:C++	struct:ball
+RISE	/home/saer/projects/pong_game/ball.h	10;"	d	language:C++
+run	/home/saer/projects/pong_game/ball.h	/^	int run;$/;"	m	language:C++	struct:ball
+RUN	/home/saer/projects/pong_game/ball.h	11;"	d	language:C++
+Screen	/home/saer/projects/pong_game/screens.h	/^typedef int (*Screen)();$/;"	t	language:C++
+shoot	/home/saer/projects/pong_game/player.h	/^	int shoot;$/;"	m	language:C++	struct:player
+shoot_button	/home/saer/projects/pong_game/player.h	/^	int shoot_button;$/;"	m	language:C++	struct:player
+startGame	/home/saer/projects/pong_game/screens.c	/^Screen startGame(SDL_Window* window, SDL_Renderer* rend){$/;"	f	language:C++
+startGame	/home/saer/projects/pong_game/screens.h	/^Screen startGame(SDL_Window* window, SDL_Renderer* rend);$/;"	p	language:C++
+tail	/home/saer/projects/pong_game/objects.h	/^	Object tail;$/;"	m	language:C++	struct:ListRep
+tex	/home/saer/projects/pong_game/objects.h	/^	SDL_Texture* tex;$/;"	m	language:C++	struct:object
+TITLE	/home/saer/projects/pong_game/game.h	19;"	d	language:C++
+UP	/home/saer/projects/pong_game/bullet.h	7;"	d	language:C++
+update_object	/home/saer/projects/pong_game/objects.h	/^	void (*update_object) (Object, List*);$/;"	m	language:C++	struct:object
+WIN_HEIGHT	/home/saer/projects/pong_game/game.h	22;"	d	language:C++
+WIN_WIDTH	/home/saer/projects/pong_game/game.h	21;"	d	language:C++
