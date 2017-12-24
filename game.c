@@ -24,7 +24,7 @@ int main(void){
 
 	srand(time(NULL));
 	
-	fncptr c_screen = startGame;
+	fncptr c_screen = menuScreen;
 	while((c_screen = (fncptr) c_screen(window, rend)));
 	
 	SDL_DestroyRenderer(rend);
