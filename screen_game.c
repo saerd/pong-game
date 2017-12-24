@@ -39,12 +39,14 @@ Screen startGame(SDL_Window* window, SDL_Renderer* rend){
 	 */
 
 	Object c = NULL, n = NULL;
+	Screen ret = (Screen) startGame;
 	while(1){
 		// step 1
 		SDL_Event e;
 		SDL_PollEvent(&e);
 		if(e.type == SDL_QUIT){
-			return NULL;
+			ret = NULL;
+			break;
 		}
 		key_states = SDL_GetKeyboardState(NULL);
 
@@ -79,5 +81,5 @@ Screen startGame(SDL_Window* window, SDL_Renderer* rend){
 
 	// clear everything before returning a new function pointer
 	freeList(objList);
-	return (Screen) startGame; // in this case restart the game
+	return ret; // in this case restart the gamem or exit (NULL)
 }
