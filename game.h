@@ -9,6 +9,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "List.h"
+
 #include "screens.h"
 #include "objects.h"
 
@@ -27,6 +29,7 @@
 #define BULLETS 2
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
+void begin_app(SDL_Window* window, SDL_Renderer* rend);
 
 
 SDL_Texture* createBackground(SDL_Renderer* rend);

@@ -1,8 +1,26 @@
+#ifndef SCREEN_H
+#define SCREEN_H
+
 #include "game.h"
 
-typedef int (*Screen)();
+typedef struct screenRep* Screen;
 
-typedef Screen (*fncptr)(SDL_Window*, SDL_Renderer*);
+#include "screen_game.h"
 
-Screen startGame(SDL_Window* window, SDL_Renderer* rend);
-Screen menuScreen(SDL_Window* window, SDL_Renderer* rend);
+struct screenRep {
+	SDL_Window* window;
+	SDL_Renderer* rend;
+
+	void* objects;
+
+	void (*update_screen)(Screen, SDL_Event*, const unsigned char*);
+	void (*render_screen)(Screen); 
+	void (*free_screen)(Screen);
+};
+
+Screen createScreen(void* objects, SDL_Window* window, SDL_Renderer* rend,
+					void (*update_screen)(Screen, SDL_Event*, const unsigned char*),
+					void (*render_screen)(Screen),
+					void (*free_screen)(Screen));
+
+#endif

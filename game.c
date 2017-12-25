@@ -1,6 +1,5 @@
 #include "game.h"
 
-
 int main(void){
 
 	if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0){
@@ -23,9 +22,12 @@ int main(void){
 	checkError(rend, window, rend);
 
 	srand(time(NULL));
-	
+
+	begin_app(window, rend);	
+	/*
 	fncptr c_screen = menuScreen;
 	while((c_screen = (fncptr) c_screen(window, rend)));
+	*/
 	
 	SDL_DestroyRenderer(rend);
 	SDL_DestroyWindow(window);
@@ -34,14 +36,29 @@ int main(void){
 	return 0;
 }
 
-/*
-int display_screen(int screen, SDL_Window* window, SDL_Renderer* rend){
-	switch (screen) {
-		case START_GAME:
-			startGame(window, rend); break;
+void begin_app(SDL_Window* window, SDL_Renderer* rend){
+	Screen s = createGameScreen(window, rend);
+
+	SDL_Event e;
+	const unsigned char* key_states;
+
+	while(1){
+		SDL_PollEvent(&e);
+		if(e.type == SDL_QUIT){
+			break;
+		}
+		key_states = SDL_GetKeyboardState(NULL);
+
+		s->update_screen(s, &e, key_states);
+
+		SDL_RenderClear(rend);
+
+		s->render_screen(s);
+
+		SDL_RenderPresent(rend);
 	}
+	s->free_screen(s);
 }
-*/
 
 SDL_Texture* createBackground(SDL_Renderer* rend){
 	
