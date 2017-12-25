@@ -40,17 +40,18 @@ void ball_update(Object b, List *objList){
 		reverseBall(d, RUN);
 	}
 	if(b->colBox.y + b->colBox.h >= WIN_HEIGHT || b->colBox.y <= 0){
-		d->done = 1;
-		return;
+		reverseBall(d, RISE);
 	}
-	Object c = objList[PLAYERS]->head;
+	Node c = objList[PLAYERS]->head;
+	Object obj = NULL;
 	while(c){
-		if(c->collision_check(c, &b->colBox)){
-			int p_int = c->colBox.x + (c->colBox.w / 2);
+		obj = (Object) c->item;
+		if(obj->collision_check(obj, &b->colBox)){
+			int p_int = obj->colBox.x + (obj->colBox.w / 2);
 			int b_int = b->colBox.x + (b->colBox.w / 2);
-			double norm_int = (b_int - p_int) / ((double)c->colBox.w / 2);
+			double norm_int = (b_int - p_int) / ((double)obj->colBox.w / 2);
 			double bounce_angle = norm_int * (5 * 3.1415/12);
-			printf("%lf %lf\n", 2 * cos(bounce_angle), 2 * sin(bounce_angle));
+//			printf("%lf %lf\n", 2 * cos(bounce_angle), 2 * sin(bounce_angle));
 			reverseBall(d, RISE);
 			int r = rand() % 6;
 			
@@ -64,20 +65,31 @@ void ball_update(Object b, List *objList){
 				case 4:
 					ballSpeed(d, DECREASE);
 			}
-		break;
+			break;
 		}
 		c = c->next;
 	}
 	
-	b->colBox.x += d->run;
-	b->colBox.y += d->rise;
-	while(c && c->collision_check(c, &b->colBox)){
+	if(!c){
 		b->colBox.y += d->rise;
+		b->colBox.x += d->run;
+		return;
 	}
+	while(obj && obj->collision_check(obj, &b->colBox)){
+		b->colBox.y += d->rise;
+		/*
+		printf("----\n");
+		printf("height is %d\n", b->colBox.y);
+		printf("rise is %d\n", d->rise);
+		printf("orginal is %d\n", orig);
+		printf("changed %d times\n", change);
+		printf("----\n");
+		*/
+	}
+	b->colBox.x += d->run;
 }
 
 void ball_render(Object b, SDL_Renderer* rend){
-
 	SDL_Rect* r = &b->colBox;
 	int w, h;
 	SDL_QueryTexture(b->tex, NULL, NULL, &w, &h);

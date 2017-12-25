@@ -9,6 +9,8 @@ Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
 {
 	Object obj = malloc(sizeof(struct object));
 
+	obj->parent = NULL;
+
 	obj->tex = tex;
 	obj->rend = rend;
 	obj->event_handle = event_handle;
@@ -26,6 +28,11 @@ void freeObject(void* o){
 	SDL_DestroyTexture(obj->tex);
 	obj->freeData(obj->data);
 	free(obj);
+}
+
+void object_parent(void* o, Node p){
+	Object obj = o;
+	obj->parent = p;
 }
 
 int check_rect(SDL_Rect* a, SDL_Rect* b){

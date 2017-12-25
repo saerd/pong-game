@@ -1,9 +1,11 @@
 CC=gcc
-CFLAGS=-lSDL2 -lSDL2_image -lm
-OBJS=player.o objects.o ball.o bullet.o screens.o screen_game.o
+CFLAGS=-g -lSDL2 -lSDL2_image -lm 
+OBJS=List.o player.o objects.o ball.o bullet.o screens.o screen_game.o 
 
 game: $(OBJS) game.c game.h
 	$(CC) -o pong $(OBJS) game.c $(CFLAGS)
+
+List.o: List.c List.h
 
 player.o: player.c player.h
 

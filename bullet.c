@@ -45,7 +45,7 @@ int bullet_col_check(Object b, SDL_Rect* r){
 
 void bullet_update(Object b, List* l){
 	if(b->colBox.y < 0 || b->colBox.y > WIN_HEIGHT){
-		deleteFromList(l[BULLETS], b);
+		deleteFromList(l[BULLETS], b->parent);
 		return;
 	}
 	Bullet d = b->data;	

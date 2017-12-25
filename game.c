@@ -2,7 +2,7 @@
 
 int main(void){
 
-	if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0){
+	if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_NOPARACHUTE) < 0){
 		fprintf(stderr, "Error initialising: %s\n", SDL_GetError());
 		SDL_Quit();
 		exit(1);
@@ -38,6 +38,7 @@ int main(void){
 
 void begin_app(SDL_Window* window, SDL_Renderer* rend){
 	Screen s = createGameScreen(window, rend);
+	checkError(s, window, rend);
 
 	SDL_Event e;
 	const unsigned char* key_states;

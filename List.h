@@ -12,6 +12,7 @@ struct listRep {
 	Node tail;
 
 	void (*free_item)(void*);
+	void (*assign_parent)(void*, Node);
 };
 
 struct node {
@@ -20,7 +21,7 @@ struct node {
 	Node prev;
 };
 
-List createList(void (*free_item)(void*));
+List createList(void (*free_item)(void*), void (*assign_parent)(void*, Node));
 void freeList(List l);
 
 Node createNode(void*);

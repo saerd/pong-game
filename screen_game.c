@@ -15,7 +15,7 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	// differently with each other
 	List *objList = malloc(N_TYPES * sizeof(List));
 	for(int i = 0; i < N_TYPES; i++){
-		objList[i] = createList(freeObject);
+		objList[i] = createList(freeObject, object_parent);
 	}
 	
 	// objects being added to their respective lists
@@ -34,7 +34,7 @@ void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states){
 		c = objList[i]->head;
 		while(c){
 			n = c->next;
-			Object o = c->item;
+			Object o = (Object) c->item;
 			o->event_handle(o, e, key_states);
 			o->update_object(o, objList);
 			c = n;
@@ -44,6 +44,10 @@ void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states){
 
 void renderGameScreen(Screen s){
 	List* objList = s->objects;
+	if(!s->rend) {
+		printf("here rend");
+		exit(1);
+	}
 	Node c;
 	for(int i = 0; i < N_TYPES; i++){
 		for(c = objList[i]->head; c; c = c->next){

@@ -1,11 +1,12 @@
 #include "List.h"
 
-List createList(void (*free_item)(void*)){
+List createList(void (*free_item)(void*), void (*assign_parent)(void*, Node)){
 	List l = malloc(sizeof(struct listRep));
 
 	l->head = NULL;
 	l->tail = NULL;
 	l->free_item = free_item;
+	l->assign_parent = assign_parent;
 
 	return l;
 }
@@ -13,7 +14,7 @@ List createList(void (*free_item)(void*)){
 void freeList(List l){
 	Node c = l->head;
 	Node p;
-	while(l->head){
+	while(c){
 		p = c;
 		c = c->next;
 		deleteFromList(l, p);
@@ -31,6 +32,8 @@ Node createNode(void* item){
 }
 void addToList(List l, void* item){
 	Node n = createNode(item);
+	l->assign_parent(item, n);
+
 	if(!l){
 		return;
 	}
