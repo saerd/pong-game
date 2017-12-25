@@ -3,10 +3,11 @@
 
 #include "screens.h"
 
-#define N_TYPES 3
+#define N_TYPES 4
 #define PLAYERS 0
 #define BALL 1
 #define BULLETS 2
+#define BUTTONS 3
 
 typedef struct gameRep* Game;
 

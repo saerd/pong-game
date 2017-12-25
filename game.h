@@ -14,6 +14,8 @@
 #include "screens.h"
 #include "objects.h"
 
+#include "button.h"
+
 #include "player.h"
 #include "ball.h"
 #include "bullet.h"
@@ -22,11 +24,6 @@
 #define POS_UNDF (SDL_WINDOWPOS_UNDEFINED)
 #define WIN_WIDTH (480)
 #define WIN_HEIGHT (720)
-
-#define N_TYPES 3
-#define PLAYERS 0
-#define BALL 1
-#define BULLETS 2
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 void begin_app(SDL_Window* window, SDL_Renderer* rend);

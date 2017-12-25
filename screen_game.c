@@ -11,6 +11,8 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	Object b = createBall(rend);
 	checkError(b, window, rend);
 
+	Object butt = createButton(10, 10, 50, 30, rend);
+
 	// array of lists, each index holding a different type of object, so that objects can interact
 	// differently with each other
 	List *objList = malloc(N_TYPES * sizeof(List));
@@ -23,6 +25,7 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	addToList(objList[PLAYERS], p1);
 	addToList(objList[PLAYERS], p2);
 	addToList(objList[BALL], b);
+	addToList(objList[BUTTONS], butt);
 
 	Game g = malloc(sizeof(struct gameRep));
 	g->objects = objList;
