@@ -47,11 +47,13 @@ void ball_update(Object b, List *objList){
 	while(c){
 		obj = (Object) c->item;
 		if(obj->collision_check(obj, &b->colBox)){
+			/*
 			int p_int = obj->colBox.x + (obj->colBox.w / 2);
 			int b_int = b->colBox.x + (b->colBox.w / 2);
 			double norm_int = (b_int - p_int) / ((double)obj->colBox.w / 2);
 			double bounce_angle = norm_int * (5 * 3.1415/12);
-//			printf("%lf %lf\n", 2 * cos(bounce_angle), 2 * sin(bounce_angle));
+			printf("%lf %lf\n", 2 * cos(bounce_angle), 2 * sin(bounce_angle));
+			*/
 			reverseBall(d, RISE);
 			int r = rand() % 6;
 			

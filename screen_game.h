@@ -8,8 +8,15 @@
 #define BALL 1
 #define BULLETS 2
 
+typedef struct gameRep* Game;
+
+struct gameRep {
+	List* objects;
+	SDL_Texture* bg;
+};
+
 Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend);
-void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states);
+void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states, List screens);
 void renderGameScreen(Screen s);
 void freeGameScreen(Screen s);
 

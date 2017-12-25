@@ -19,6 +19,7 @@ void freeList(List l){
 		c = c->next;
 		deleteFromList(l, p);
 	}
+	free(l);
 }
 
 Node createNode(void* item){

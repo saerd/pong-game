@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -lSDL2 -lSDL2_image -lm 
+CFLAGS=-Wall -Werror -lSDL2 -lSDL2_image -lm 
 OBJS=List.o player.o objects.o ball.o bullet.o screens.o screen_game.o 
 
 game: $(OBJS) game.c game.h

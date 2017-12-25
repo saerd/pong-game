@@ -14,6 +14,7 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	// array of lists, each index holding a different type of object, so that objects can interact
 	// differently with each other
 	List *objList = malloc(N_TYPES * sizeof(List));
+
 	for(int i = 0; i < N_TYPES; i++){
 		objList[i] = createList(freeObject, object_parent);
 	}
@@ -23,12 +24,28 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	addToList(objList[PLAYERS], p2);
 	addToList(objList[BALL], b);
 
-	Screen s = createScreen(objList, window, rend, updateGameScreen, renderGameScreen, freeGameScreen);
+	Game g = malloc(sizeof(struct gameRep));
+	g->objects = objList;
+	g->bg = createBackground(rend);
+
+	Screen s = createScreen(g, window, rend, updateGameScreen, renderGameScreen, freeGameScreen);
 	return s;	
 }
 
-void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states){
-	List* objList = s->objects;
+void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states, List screens){
+
+	Game g = s->screen_data;
+	List* objList = g->objects;
+
+	if(e->type == SDL_KEYDOWN){
+		if(e->key.keysym.scancode == SDL_SCANCODE_R){
+			Screen new = createGameScreen(s->window, s->rend);
+			addToList(screens, new);
+			deleteFromList(screens, s->parent);
+			return;
+		}
+	}
+
 	Node c = NULL, n = NULL;
 	for(int i = 0; i < N_TYPES; i++){
 		c = objList[i]->head;
@@ -43,11 +60,11 @@ void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states){
 }
 
 void renderGameScreen(Screen s){
-	List* objList = s->objects;
-	if(!s->rend) {
-		printf("here rend");
-		exit(1);
-	}
+
+	Game g = s->screen_data;
+	SDL_RenderCopy(s->rend, g->bg, NULL, NULL);
+
+	List* objList = g->objects;
 	Node c;
 	for(int i = 0; i < N_TYPES; i++){
 		for(c = objList[i]->head; c; c = c->next){
@@ -58,10 +75,31 @@ void renderGameScreen(Screen s){
 }
 
 void freeGameScreen(Screen s){
-	List* objList = s->objects;
+	Game g = s->screen_data;
+	List* objList = g->objects;
 	for(int i = 0; i < N_TYPES; i++){
 		freeList(objList[i]);
 	}
+	free(objList);
+	SDL_DestroyTexture(g->bg);
+	free(g);
+	free(s);
+}
+
+
+SDL_Texture* createBackground(SDL_Renderer* rend){
+	
+	SDL_Surface* surface = IMG_Load("art/pong_bg.png");
+	if(!surface){
+		return NULL;
+	}
+
+	SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);
+	SDL_FreeSurface(surface);
+	if(!tex){
+		return NULL;	
+	}
+	return tex;
 
 }
 

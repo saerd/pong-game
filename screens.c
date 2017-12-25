@@ -1,19 +1,32 @@
 #include "screens.h"
 
-Screen createScreen(void* objects, SDL_Window* window, SDL_Renderer* rend,
-					void (*update_screen)(Screen, SDL_Event*, const unsigned char*),
+Screen createScreen(void* screen_data, SDL_Window* window, SDL_Renderer* rend,
+					void (*update_screen)(Screen, SDL_Event*, const unsigned char*, List),
 					void (*render_screen)(Screen),
 					void (*free_screen)(Screen)){
 
 	Screen s = malloc(sizeof(struct screenRep));
+
+	s->parent = NULL;
+
 	s->window = window;
 	s->rend = rend;
 
-	s->objects = objects;
+	s->screen_data = screen_data;
 
 	s->render_screen = render_screen;
 	s->update_screen = update_screen;
 	s->free_screen = free_screen;
 
 	return s;
+}
+
+void screenParent(void* o, Node n){
+	Screen scr = o;
+	scr->parent = n;
+}
+
+void freeScreen(void* o){
+	Screen s = o;
+	s->free_screen(s);
 }

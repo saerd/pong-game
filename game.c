@@ -43,37 +43,41 @@ void begin_app(SDL_Window* window, SDL_Renderer* rend){
 	SDL_Event e;
 	const unsigned char* key_states;
 
+	List screens = createList(freeScreen, screenParent);
+
+	addToList(screens, s);
+
+
 	while(1){
+		Screen scr;
+
 		SDL_PollEvent(&e);
 		if(e.type == SDL_QUIT){
 			break;
 		}
 		key_states = SDL_GetKeyboardState(NULL);
 
-		s->update_screen(s, &e, key_states);
+		Node c = screens->tail;
+		scr = c->item;
+
+		scr->update_screen(scr, &e, key_states, screens);
+
+		c = screens->head;
+		Node n;
 
 		SDL_RenderClear(rend);
-
-		s->render_screen(s);
-
+		while(c){
+			n = c->next;
+			scr = c->item;
+			scr->render_screen(scr);
+			c = n;
+		}
 		SDL_RenderPresent(rend);
-	}
-	s->free_screen(s);
-}
 
-SDL_Texture* createBackground(SDL_Renderer* rend){
-	
-	SDL_Surface* surface = IMG_Load("art/pong_bg.png");
-	if(!surface){
-		return NULL;
 	}
 
-	SDL_Texture* tex = SDL_CreateTextureFromSurface(rend, surface);
-	SDL_FreeSurface(surface);
-	if(!tex){
-		return NULL;	
-	}
-	return tex;
+	freeList(screens);
+
 }
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend){
