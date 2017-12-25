@@ -50,7 +50,7 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 	return p;
 }
 
-void player_EH(Object p, SDL_Event *e, const unsigned char * key_states){
+void player_EH(Object p, SDL_Event *e, const unsigned char * key_states, List screens){
 		Player d = (Player) p->data;
 		int left = d->left_button, right = d->right_button, shoot = d->shoot_button;
 

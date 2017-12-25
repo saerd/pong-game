@@ -20,7 +20,7 @@ struct ball {
 };
 
 Object createBall(SDL_Renderer* rend);
-void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states);
+void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens);
 void ball_render(Object, SDL_Renderer*);
 int ball_col_check(Object b, SDL_Rect* r);
 

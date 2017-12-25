@@ -52,7 +52,7 @@ void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states, L
 		while(c){
 			n = c->next;
 			Object o = (Object) c->item;
-			o->event_handle(o, e, key_states);
+			o->event_handle(o, e, key_states, screens);
 			o->update_object(o, objList);
 			c = n;
 		}

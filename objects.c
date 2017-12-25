@@ -1,7 +1,7 @@
 #include "game.h"
 
 Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
-					void (*event_handle)(Object, SDL_Event*, const unsigned char*), 
+					void (*event_handle)(Object, SDL_Event*, const unsigned char*, List), 
 					void (*update_object)(Object, List*), 
 					void (*render_object)(Object, SDL_Renderer*),
 					int  (*collision_check)(Object, SDL_Rect*),

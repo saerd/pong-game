@@ -34,6 +34,10 @@ Object createBall(SDL_Renderer* rend){
 	return b;
 }
 
+void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens){
+	return;
+}
+
 void ball_update(Object b, List *objList){
 	Ball d = b->data;
 	if(b->colBox.x + b->colBox.w >= WIN_WIDTH || b->colBox.x <= 0){
@@ -157,9 +161,6 @@ void reverseBall(Ball b, int flag){
 }
 
 
-void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states){
-	return;
-}
 
 void free_ball(void * b){
 	free(b);
