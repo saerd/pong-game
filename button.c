@@ -1,6 +1,7 @@
 #include "button.h"
 
-Object createButton(int x, int y, int w, int h, SDL_Renderer* rend){
+Object createButton(int x, int y, int w, int h,
+					int (*action)(Object, List), SDL_Renderer* rend){
 	Object b;
 
 	SDL_Surface* surface = IMG_Load("art/button.png");
@@ -21,6 +22,7 @@ Object createButton(int x, int y, int w, int h, SDL_Renderer* rend){
 	Button new_button = malloc(sizeof(struct button));
 	new_button->pressed = 0;
 	new_button->trigger = 0;
+	new_button->action = action;
 
 	b->data = new_button;
 
@@ -32,44 +34,36 @@ Object createButton(int x, int y, int w, int h, SDL_Renderer* rend){
 	return b;
 }
 
-void button_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens){
+int button_EH(Object b, Input in, List screens){
+
 	Button d = b->data;
-	if(e->type == SDL_MOUSEBUTTONUP){
-		int x = e->button.x, y = e->button.y;
-		if(b->colBox.x < x && x < b->colBox.x + b->colBox.w &&
-		   b->colBox.y < y && y < b->colBox.y + b->colBox.h){
+	int x = in->mouse_x, y = in->mouse_y;
 
-			d->pressed = 0;
-			d->trigger = 1;
-			return;
-		}
-		d->pressed = 0;
-		d->trigger = 0;
-		return;
-	}
-	if(e->type == SDL_MOUSEBUTTONDOWN){
-		int x = e->button.x, y = e->button.y;
+	if(in->mask & SDL_BUTTON(SDL_BUTTON_LEFT)){
 		if(b->colBox.x < x && x < b->colBox.x + b->colBox.w &&
 		   b->colBox.y < y && y < b->colBox.y + b->colBox.h){
-
-			d->pressed = 1;
-			d->trigger = 0;
-			return;
-		}
-	}
-	if(e->type == SDL_MOUSEMOTION){
-		int x = e->button.x, y = e->button.y;
-		if(b->colBox.x < x && x < b->colBox.x + b->colBox.w &&
-		   b->colBox.y < y && y < b->colBox.y + b->colBox.h){
+			if(!d->pressed){
+				d->pressed = PRESSED;
+			}
 		}
 		else{
+			d->pressed = HELD;
+		}
+	}
+	else{
+		if(b->colBox.x < x && x < b->colBox.x + b->colBox.w &&
+		   b->colBox.y < y && y < b->colBox.y + b->colBox.h && d->pressed == PRESSED){
+			d->pressed = 0;
+			d->trigger = 1;
+			return d->action(b, screens);
+		}
+		else {
 			d->pressed = 0;
 			d->trigger = 0;
 		}
-
 	}
 
-
+	return 1;
 }
 
 void button_update(Object b, List* objList){
@@ -88,7 +82,7 @@ void button_render(Object b, SDL_Renderer* rend){
 
 	SDL_Rect r = {0, 0, w, h};
 	Button d = b->data;
-	if(d->pressed){
+	if(d->pressed == PRESSED){
 		r.y = h;
 	}
 

@@ -31,8 +31,8 @@ Object createBullet(int x, int y, SDL_Renderer* rend){
 	return b;
 }
 
-void bullet_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens){
-	return;
+int bullet_EH(Object b, Input in, List screens){
+	return 1;
 }
 
 void bullet_render(Object b, SDL_Renderer* rend){

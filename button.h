@@ -5,13 +5,18 @@
 
 typedef struct button* Button;
 
+#define PRESSED 1
+#define HELD 2
+
 struct button {
 	int pressed;
 	int trigger;
+	int (*action)(Object, List);
 };
 
-Object createButton(int x, int y, int w, int h, SDL_Renderer* rend);
-void button_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens);
+Object createButton(int x, int y, int w, int h, 
+					int (*action)(Object, List), SDL_Renderer* rend);
+int button_EH(Object b, Input in, List screens);
 void button_update(Object b, List*);
 void button_render(Object, SDL_Renderer*);
 int button_col_check(Object b, SDL_Rect* r);

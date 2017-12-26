@@ -14,7 +14,7 @@ struct object {
 	SDL_Renderer* rend;
 	void* data;
 
-	void (*event_handle) (Object, SDL_Event*, const unsigned char*, List);
+	int (*event_handle) (Object, Input, List);
 	void (*update_object) (Object, List*);
 	void (*render_object) (Object, SDL_Renderer*);
 	int (*collision_check) (Object, SDL_Rect*);
@@ -23,7 +23,7 @@ struct object {
 };
 
 Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
-					void (*event_handle)(Object, SDL_Event*, const unsigned char*, List), 
+					int (*event_handle)(Object, Input, List), 
 					void (*update_object)(Object, List*), 
 					void (*render_object)(Object, SDL_Renderer*),
 					int  (*collision_check)(Object, SDL_Rect*),

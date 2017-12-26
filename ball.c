@@ -34,8 +34,16 @@ Object createBall(SDL_Renderer* rend){
 	return b;
 }
 
-void ball_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens){
-	return;
+int ball_EH(Object b, Input in, List screens){
+	Ball d = b->data;
+	if(0 && d->done){
+		Screen current = screens->tail->item;
+		Screen new = createGameScreen(current->window, current->rend);
+		addToList(screens, new);
+		deleteFromList(screens, current->parent);
+		return 0;
+	}
+	return 1;
 }
 
 void ball_update(Object b, List *objList){
@@ -45,6 +53,7 @@ void ball_update(Object b, List *objList){
 	}
 	if(b->colBox.y + b->colBox.h >= WIN_HEIGHT || b->colBox.y <= 0){
 		reverseBall(d, RISE);
+		d->done = 1;
 	}
 	Node c = objList[PLAYERS]->head;
 	Object obj = NULL;

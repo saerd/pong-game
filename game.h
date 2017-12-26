@@ -9,21 +9,38 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+typedef struct input* Input;
+
+struct input {
+	SDL_Event* event;
+	const unsigned char* key_states;
+	int mouse_x;
+	int mouse_y;
+	unsigned int mask;
+};
+
+Input createInput(void);
+int updateInput(Input);
+int filterMouseMotion(void* d, SDL_Event* event);
+
 #include "List.h"
 
-#include "screens.h"
+
 #include "objects.h"
 
 #include "button.h"
-
 #include "player.h"
 #include "ball.h"
 #include "bullet.h"
+
+#include "screens.h"
+
 
 #define TITLE "Pong game"
 #define POS_UNDF (SDL_WINDOWPOS_UNDEFINED)
 #define WIN_WIDTH (480)
 #define WIN_HEIGHT (720)
+
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);
 void begin_app(SDL_Window* window, SDL_Renderer* rend);

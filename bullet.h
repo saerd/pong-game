@@ -15,7 +15,7 @@ struct bullet {
 };
 
 Object createBullet(int x, int y, SDL_Renderer* rend);
-void bullet_EH(Object b, SDL_Event *e, const unsigned char * key_states, List screens);
+int bullet_EH(Object b, Input in, List screens);
 void bullet_render(Object, SDL_Renderer*);
 int bullet_col_check(Object b, SDL_Rect* r);
 

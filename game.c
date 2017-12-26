@@ -37,30 +37,28 @@ int main(void){
 }
 
 void begin_app(SDL_Window* window, SDL_Renderer* rend){
-	Screen s = createGameScreen(window, rend);
+	Screen s = createMenuScreen(window, rend);
 	checkError(s, window, rend);
 
-	SDL_Event e;
-	const unsigned char* key_states;
+	Input in = createInput();
 
 	List screens = createList(freeScreen, screenParent);
 
 	addToList(screens, s);
 
 
-	while(1){
+	while(screens->head){
 		Screen scr;
 
-		SDL_PollEvent(&e);
-		if(e.type == SDL_QUIT){
+		updateInput(in);
+		if(in->event->type == SDL_QUIT){
 			break;
 		}
-		key_states = SDL_GetKeyboardState(NULL);
 
 		Node c = screens->tail;
 		scr = c->item;
 
-		scr->update_screen(scr, &e, key_states, screens);
+		scr->update_screen(scr, in, screens);
 
 		c = screens->head;
 		Node n;
@@ -78,6 +76,32 @@ void begin_app(SDL_Window* window, SDL_Renderer* rend){
 
 	freeList(screens);
 
+}
+
+Input createInput(void){
+	Input in = malloc(sizeof(struct input));
+	in->event = malloc(sizeof(SDL_Event));
+	SDL_SetEventFilter(filterMouseMotion, NULL);
+	return in;
+}
+
+int updateInput(Input in){
+	SDL_PollEvent(in->event);
+	in->key_states = SDL_GetKeyboardState(NULL);
+	int x, y;
+	unsigned int mask = SDL_GetMouseState(&x, &y);
+	in->mouse_x = x;
+	in->mouse_y = y;
+	in->mask = mask;
+
+	return 1;
+}
+
+int filterMouseMotion(void* d, SDL_Event* event){
+	if(event->type == SDL_MOUSEMOTION) {
+		return 0;
+	}
+	return 1;
 }
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend){

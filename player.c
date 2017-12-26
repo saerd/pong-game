@@ -50,9 +50,13 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 	return p;
 }
 
-void player_EH(Object p, SDL_Event *e, const unsigned char * key_states, List screens){
+int player_EH(Object p, Input in, List screens){
+		
 		Player d = (Player) p->data;
 		int left = d->left_button, right = d->right_button, shoot = d->shoot_button;
+
+//		SDL_Event* e = in->event;
+		const unsigned char* key_states = in->key_states;
 
 		if(key_states[left]){
 			d->moving = 1;
@@ -62,25 +66,16 @@ void player_EH(Object p, SDL_Event *e, const unsigned char * key_states, List sc
 			d->moving = 1;
 			d->direction = right;
 		}
-		if(e->type == SDL_KEYDOWN){
-			if(e->key.keysym.scancode == left){
-				d->moving = 1;
-				d->direction = left;
-			}
-			if (e->key.keysym.scancode == right){
-				d->moving = 1;
-				d->direction = right;
-			}
-			if (e->key.keysym.scancode == shoot){
-				if(shoot == P1_SHOOT) d->shoot = UP;
-				else d->shoot = DOWN;
-
-			}
+		if(key_states[shoot]){
+			if(shoot == P1_SHOOT) d->shoot = UP;
+			else d->shoot = DOWN;
 		}
 
 		if(!key_states[left] && !key_states[right]){
 			d->moving = 0;
 		}
+
+		return 1;
 }
 
 void player_update(Object p, List* objList){

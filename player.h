@@ -11,8 +11,6 @@
 #define P2_RIGHT (SDL_SCANCODE_D)
 #define P2_SHOOT (SDL_SCANCODE_W)
 
-
-
 typedef struct player* Player;
 
 struct player {
@@ -25,7 +23,7 @@ struct player {
 };
 
 Object createPlayer(int pNum, SDL_Renderer* rend);
-void player_EH(Object p, SDL_Event *e, const unsigned char * key_states, List screens);
+int player_EH(Object p, Input in, List screens);
 void player_update(Object p, List*);
 void player_render(Object, SDL_Renderer*);
 int player_col_check(Object p, SDL_Rect* r);

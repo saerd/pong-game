@@ -11,8 +11,6 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	Object b = createBall(rend);
 	checkError(b, window, rend);
 
-	Object butt = createButton(10, 10, 50, 30, rend);
-
 	// array of lists, each index holding a different type of object, so that objects can interact
 	// differently with each other
 	List *objList = malloc(N_TYPES * sizeof(List));
@@ -25,7 +23,6 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	addToList(objList[PLAYERS], p1);
 	addToList(objList[PLAYERS], p2);
 	addToList(objList[BALL], b);
-	addToList(objList[BUTTONS], butt);
 
 	Game g = malloc(sizeof(struct gameRep));
 	g->objects = objList;
@@ -35,16 +32,17 @@ Screen createGameScreen(SDL_Window* window, SDL_Renderer* rend){
 	return s;	
 }
 
-void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states, List screens){
+void updateGameScreen(Screen s, Input in, List screens){
 
 	Game g = s->screen_data;
 	List* objList = g->objects;
 
+	SDL_Event* e = in->event;
+
 	if(e->type == SDL_KEYDOWN){
 		if(e->key.keysym.scancode == SDL_SCANCODE_R){
-			Screen new = createGameScreen(s->window, s->rend);
+			Screen new = createMenuScreen(s->window, s->rend);
 			addToList(screens, new);
-			deleteFromList(screens, s->parent);
 			return;
 		}
 	}
@@ -55,7 +53,7 @@ void updateGameScreen(Screen s, SDL_Event* e, const unsigned char* key_states, L
 		while(c){
 			n = c->next;
 			Object o = (Object) c->item;
-			o->event_handle(o, e, key_states, screens);
+			if(!o->event_handle(o, in, screens)) return;
 			o->update_object(o, objList);
 			c = n;
 		}
