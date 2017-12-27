@@ -5,6 +5,9 @@ Screen createScreen(void* screen_data, SDL_Window* window, SDL_Renderer* rend,
 					void (*render_screen)(Screen),
 					void (*free_screen)(Screen)){
 
+	if(!(window && rend && update_screen && render_screen && free_screen)) return NULL;
+
+	// simple function that mallocs space and fills all fields
 	Screen s = malloc(sizeof(struct screenRep));
 
 	s->parent = NULL;
@@ -21,6 +24,7 @@ Screen createScreen(void* screen_data, SDL_Window* window, SDL_Renderer* rend,
 	return s;
 }
 
+// For use with Lists
 void screenParent(void* o, Node n){
 	Screen scr = o;
 	scr->parent = n;

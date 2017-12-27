@@ -4,6 +4,11 @@
 #include "stdlib.h"
 #include "stdio.h"
 
+// Generic list implementation designed only to store data of one specific type
+// must be initialised with a function to free this data and a function
+// to have its container Node be referencable from within the data
+// this is so that an item can delete itself from the list only when added to a list
+
 typedef struct listRep* List;
 typedef struct node* Node;
 

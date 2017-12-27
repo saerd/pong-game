@@ -11,6 +11,9 @@
 
 typedef struct input* Input;
 
+// implementation of input that has the Event struct, key states array and 3 variables describing
+// the state of the mouse
+
 struct input {
 	SDL_Event* event;
 	const unsigned char* key_states;
@@ -21,6 +24,7 @@ struct input {
 
 Input createInput(void);
 int updateInput(Input);
+void freeInput(Input in);
 int filterMouseMotion(void* d, SDL_Event* event);
 
 #include "List.h"

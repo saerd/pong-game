@@ -169,8 +169,6 @@ void reverseBall(Ball b, int flag){
 	}
 }
 
-
-
 void free_ball(void * b){
 	free(b);
 }

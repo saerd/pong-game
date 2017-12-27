@@ -1,4 +1,4 @@
-a simple pong game to practice using SDL
+a simple pong game to practice using a library and designing an engine
 
 Goals / subsets
 
@@ -23,3 +23,7 @@ function that renders everything
 
 with this mind, if this is done carefully I can have a stack of screens to maintain
 and be able to make pause menus hopefully
+
+a screen stack has been implemented and I am very happy with the result, Ive made a generic button
+that can modify the screen stack, and with that I made a menu that shows up to pause the game or
+when the app starts

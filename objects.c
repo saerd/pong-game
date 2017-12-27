@@ -7,9 +7,13 @@ Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
 					int  (*collision_check)(Object, SDL_Rect*),
 					void (*freeData)(void *))
 {
+
+	if(!(tex && rend && event_handle && render_object && collision_check && freeData)) return NULL;
+	// simple function that mallocs space and fills all fields
 	Object obj = malloc(sizeof(struct object));
 
 	obj->parent = NULL;
+
 
 	obj->tex = tex;
 	obj->rend = rend;
@@ -35,6 +39,8 @@ void object_parent(void* o, Node p){
 	obj->parent = p;
 }
 
+// this is a generic function that checks collision between two rectangles, recommended to use in
+// an objects collision_check function
 int check_rect(SDL_Rect* a, SDL_Rect* b){
 	int leftA = a->x, 			leftB = b->x;
 	int rightA = a->x + a->w, 	rightB = b->x + b->w;
@@ -46,7 +52,7 @@ int check_rect(SDL_Rect* a, SDL_Rect* b){
 	if(leftA >= rightB) return 0;
 	if(rightA <= leftB) return 0;
 
-	/*
+	/* debug data
 	printf("BOT: |%d - %d| = %d\n", botA, topB, abs(botA - topB));
 	printf("TOP: |%d - %d| = %d\n", topA, botB, abs(topA - botB));
 	printf("LEFT: |%d - %d| = %d\n", leftA, rightB, abs(leftA - rightB));
@@ -56,6 +62,8 @@ int check_rect(SDL_Rect* a, SDL_Rect* b){
 	return 1;
 }
 
+
+// OLD IMPLEMENTATION BELOW
 
 /*
 List createList(void){
