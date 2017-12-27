@@ -18,7 +18,9 @@
 // 			of every object. So as a substitute, just need to provide a function that can check
 // 			collision with itself and a rectangle
 // 	5.	freeData - a way to free its void * data that it was initialised with
-
+//
+// 	Refer to button.c for a sample Object implementation with explanation, other objects lack explanation
+// 	but are more in depth examples
 
 typedef struct object* Object;
 
