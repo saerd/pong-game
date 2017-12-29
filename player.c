@@ -30,11 +30,23 @@ Object createPlayer(int pNum, SDL_Renderer* rend){
 		return NULL;	
 	}
 
+	surface = IMG_Load("art/flame_sprite.png");
+	if(!surface) return NULL;
+	SDL_Texture* bullet_tex = SDL_CreateTextureFromSurface(rend, surface);
+	if(!tex) return NULL;
+
 	p = createObject(tex, rend, player_EH, player_update, player_render, player_col_check, free_player);
 	Player d = malloc(sizeof(struct player));
 	d->moving = 0;
 	d->direction = 0;
+
 	d->shoot = NONE;
+	d->reload = 0;
+	d->restock = RESTOCK_TIME;
+
+	d->n_bullets = MAX_BULLETS;
+
+	d->bullet_tex = bullet_tex;
 
 	d->left_button = p_left;
 	d->right_button = p_right;
@@ -67,8 +79,10 @@ int player_EH(Object p, Input in, List screens){
 			d->direction = right;
 		}
 		if(key_states[shoot]){
-			if(shoot == P1_SHOOT) d->shoot = UP;
-			else d->shoot = DOWN;
+			if(d->reload == 0 && d->n_bullets > 0){
+				if(shoot == P1_SHOOT) d->shoot = UP;
+				else d->shoot = DOWN;
+			}
 		}
 
 		if(!key_states[left] && !key_states[right]){
@@ -83,6 +97,13 @@ void player_update(Object p, List* objList){
 	SDL_Rect* r = &p->colBox;
 	const int left = d->left_button, right = d->right_button;
 
+	if(d->restock >= RESTOCK_TIME){
+		d->n_bullets = min(d->n_bullets + 1, MAX_BULLETS);
+		d->restock = 0;
+	}
+	d->restock = min(d->restock + 1, RESTOCK_TIME);
+	d->reload = max(d->reload - 1, 0);
+
 	if(d->moving){
 		if(d->direction == left){
 			r->x -= 2;
@@ -96,12 +117,16 @@ void player_update(Object p, List* objList){
 	if(d->shoot){
 		int x = p->colBox.x + (p->colBox.w - 5)/ 2;
 		int y = p->colBox.y;
-		Object b = createBullet(x, y, p->rend);
+		Object b = createBullet(x, y, d->bullet_tex, p->rend);
 		Bullet bull = b->data;
 		bull->direction = d->shoot;
 		d->shoot = NONE;
 		addToList(objList[BULLETS], b);
+
+		d->reload = RELOAD_TIME;
+		d->n_bullets = max(d->n_bullets - 1, 0);
 	}
+
 }
 
 void player_render(Object p, SDL_Renderer* rend){
@@ -136,5 +161,7 @@ int player_col_check(Object p, SDL_Rect* r){
 }
 
 void free_player(void* p){
+	Player pl = p;
+	SDL_DestroyTexture(pl->bullet_tex);
 	free(p);
 }

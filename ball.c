@@ -36,7 +36,7 @@ Object createBall(SDL_Renderer* rend){
 
 int ball_EH(Object b, Input in, List screens){
 	Ball d = b->data;
-	if(1 && d->done){
+	if(0 && d->done){
 		Screen current = screens->tail->item;
 		Screen new = createMenuScreen(current->window, current->rend);
 		addToList(screens, new);

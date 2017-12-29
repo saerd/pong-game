@@ -18,7 +18,7 @@ int main(void){
 		exit(1);
 	}
 
-	unsigned int flags = SDL_RENDERER_ACCELERATED; // flags for creating a renderer
+	unsigned int flags = SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC; // flags for creating a renderer
 
 	// Create a Renderer
 	SDL_Renderer* rend = SDL_CreateRenderer(window, -1, flags);

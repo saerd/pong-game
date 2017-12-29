@@ -8,7 +8,7 @@ Object createObject(SDL_Texture* tex, SDL_Renderer* rend,
 					void (*freeData)(void *))
 {
 
-	if(!(tex && rend && event_handle && render_object && collision_check && freeData)) return NULL;
+	if(!(rend && event_handle && render_object && collision_check && freeData)) return NULL;
 	// simple function that mallocs space and fills all fields
 	Object obj = malloc(sizeof(struct object));
 

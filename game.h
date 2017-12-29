@@ -42,8 +42,8 @@ int filterMouseMotion(void* d, SDL_Event* event);
 
 #define TITLE "Pong game"
 #define POS_UNDF (SDL_WINDOWPOS_UNDEFINED)
-#define WIN_WIDTH (480)
-#define WIN_HEIGHT (720)
+#define WIN_WIDTH (600)
+#define WIN_HEIGHT (900)
 
 
 void checkError(void* ptr, SDL_Window* window, SDL_Renderer* rend);

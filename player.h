@@ -11,15 +11,27 @@
 #define P2_RIGHT (SDL_SCANCODE_D)
 #define P2_SHOOT (SDL_SCANCODE_W)
 
+#define RESTOCK_TIME 300
+#define RELOAD_TIME 40
+#define MAX_BULLETS 3
+
 typedef struct player* Player;
 
 struct player {
 	int left_button;
 	int right_button;
 	int shoot_button;
+
 	int moving;
 	int direction;
+
 	int shoot;
+	int reload;
+	int restock;
+
+	int n_bullets;
+
+	SDL_Texture* bullet_tex;
 };
 
 Object createPlayer(int pNum, SDL_Renderer* rend);
